@@ -19,15 +19,15 @@ export default async function ProgramsPage() {
   // Get user's active program
   const { data: activeProgram } = await supabase
     .from('user_sessions')
-    .select('session_id, sessions(id, title)')
+    .select('session_id')
     .eq('user_id', user.id)
     .eq('is_active', true)
-    .single()
+    .maybeSingle()
 
   return (
     <ProgramsClient
       isSubscribed={isSubscribed}
-      activeProgramId={(activeProgram?.sessions as { id: string } | null)?.id ?? null}
+      activeProgramId={activeProgram?.session_id ?? null}
     />
   )
 }
