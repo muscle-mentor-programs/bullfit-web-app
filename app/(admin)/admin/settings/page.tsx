@@ -52,7 +52,7 @@ export default function AdminSettingsPage() {
               <p className="text-sm font-semibold text-text-primary">Administrator</p>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <Mail size={12} className="text-text-muted" />
-                <p className="text-xs text-text-muted">musclementorprograms@gmail.com</p>
+                <p className="text-xs text-text-muted">BULLFIT Admin</p>
               </div>
             </div>
           </div>

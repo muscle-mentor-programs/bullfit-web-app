@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const FEATURES = [
-  'Full access to all training programs',
-  'Unlimited program enrollments',
-  'Build & customize your own workouts',
-  'Progress & weight tracking',
+  'Full access to all influencer + BULLFIT programs',
+  'Barcode scanner for instant food logging',
+  'Complete nutrition tracking & macro goals',
+  'Progress & body weight tracking',
   'New programs added regularly',
   'Cancel anytime',
 ]
@@ -314,10 +314,10 @@ export default function SubscribePage() {
       {/* Back link */}
       <div className="text-center px-4 pb-8">
         <a
-          href="/library"
+          href="/programs"
           className="text-xs text-text-muted hover:text-text-secondary transition-colors"
         >
-          ← Back to program library
+          ← Back to programs
         </a>
       </div>
     </div>
