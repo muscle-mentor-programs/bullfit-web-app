@@ -18,7 +18,7 @@ export default function AdminError({
     <div className="flex flex-col items-center justify-center gap-6 px-6 py-24 text-center max-w-md mx-auto">
       <div
         className="flex h-14 w-14 items-center justify-center rounded-2xl shadow-md"
-        style={{ background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark))' }}
+        style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
       >
         <AlertCircle size={24} className="text-white" />
       </div>
@@ -36,7 +36,7 @@ export default function AdminError({
       <button
         onClick={reset}
         className="inline-flex items-center gap-2 h-10 px-5 rounded-xl text-sm font-black text-white shadow-md transition-all active:scale-[0.98]"
-        style={{ background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark))' }}
+        style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
       >
         <RotateCcw size={14} />
         Try Again

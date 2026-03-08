@@ -41,7 +41,7 @@ function SidebarNavItem({ link, isActive }: { link: NavLink; isActive: boolean }
           ? 'text-white shadow-primary'
           : 'text-text-secondary hover:bg-surface-2 hover:text-text-primary hover:shadow-sm',
       )}
-      style={isActive ? { background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark))' } : {}}
+      style={isActive ? { background: BULL_G } : {}}
       aria-current={isActive ? 'page' : undefined}
     >
       <Icon
@@ -53,17 +53,27 @@ function SidebarNavItem({ link, isActive }: { link: NavLink; isActive: boolean }
   )
 }
 
+const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+
 // ── Brand ─────────────────────────────────────────────────────────────────────
 function Brand() {
   return (
     <div className="flex items-center gap-2.5 px-3 py-2 mb-6">
       <div
-        className="flex items-center justify-center w-8 h-8 rounded-lg shadow-primary flex-shrink-0"
-        style={{ background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark))' }}
+        className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0"
+        style={{ background: BULL_G }}
       >
-        <span className="text-white font-black text-base leading-none">M</span>
+        <span className="text-black font-black text-base leading-none">B</span>
       </div>
-      <span className="text-base font-black text-text-primary">BULLFIT</span>
+      <span
+        className="text-base font-black"
+        style={{
+          background: BULL_G,
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}
+      >BULLFIT</span>
     </div>
   )
 }
@@ -137,7 +147,7 @@ function AdminNav() {
                     'transition-all duration-300 ease-[0.4,0,0.2,1]',
                     active ? 'w-6 opacity-100' : 'w-0 opacity-0',
                   )}
-                  style={{ background: 'linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark))' }}
+                  style={{ background: BULL_G }}
                 />
 
                 {/* Icon */}

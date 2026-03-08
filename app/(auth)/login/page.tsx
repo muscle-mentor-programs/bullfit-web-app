@@ -65,11 +65,8 @@ function LoginContent() {
         .eq('id', user.id)
         .single()
 
-      if (userData?.role === 'admin') {
-        router.push('/admin/dashboard')
-      } else {
-        router.push(next)
-      }
+      // Always land on the BULLFIT client app — admin panel accessible via /admin/dashboard
+      router.push(next)
     } catch {
       setError('Something went wrong. Please try again.')
     } finally {

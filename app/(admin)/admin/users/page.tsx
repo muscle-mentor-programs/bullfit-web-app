@@ -31,7 +31,7 @@ export default async function AdminUsersPage() {
       {/* Header */}
       <div
         className="rounded-2xl overflow-hidden border border-primary/20 shadow-md relative"
-        style={{ background: 'linear-gradient(135deg, var(--color-primary-dark), var(--color-primary))' }}
+        style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
       >
         <div
           className="absolute -right-6 -top-6 w-28 h-28 rounded-full pointer-events-none"

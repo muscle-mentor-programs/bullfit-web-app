@@ -77,7 +77,7 @@ function ProgramCard({ program, onDelete }: { program: Program; onDelete: (id: s
                 'flex-1 inline-flex items-center justify-center gap-1.5 h-9 rounded-xl text-xs font-black',
                 'text-white shadow-sm transition-all hover:shadow-md active:scale-[0.97]',
               )}
-              style={{ background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark))' }}
+              style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
             >
               <Edit size={12} />
               Edit

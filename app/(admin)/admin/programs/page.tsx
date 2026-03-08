@@ -15,7 +15,7 @@ export default async function AdminProgramsPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Page Header */}
-      <div className="rounded-2xl overflow-hidden border border-primary/20 shadow-md relative" style={{ background: 'linear-gradient(135deg, var(--color-primary-dark), var(--color-primary))' }}>
+      <div className="rounded-2xl overflow-hidden border border-primary/20 shadow-md relative" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}>
         <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%)' }} />
         <div className="flex items-center justify-between px-6 py-5 relative">
           <div>
@@ -62,7 +62,7 @@ export default async function AdminProgramsPage() {
               'inline-flex items-center gap-2 h-9 px-4 rounded-xl text-sm font-black',
               'text-white shadow-primary transition-all hover:shadow-md active:scale-[0.98]',
             )}
-            style={{ background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark))' }}
+            style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
           >
             <Plus size={15} />
             Create Program
