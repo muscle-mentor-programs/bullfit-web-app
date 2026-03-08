@@ -1,36 +1,35 @@
 import { ImageResponse } from 'next/og'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 export const size = { width: 32, height: 32 }
 export const contentType = 'image/png'
 
 export default function Icon() {
+  const logoData = readFileSync(join(process.cwd(), 'public/bull-logo.png'))
+  const logoSrc = `data:image/png;base64,${logoData.toString('base64')}`
+
   return new ImageResponse(
     (
       <div
         style={{
-          background: 'radial-gradient(circle at 30% 30%, #1A1A1A, #000000)',
+          background: '#000000',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: '7px',
         }}
       >
-        <span
+        {/* @ts-expect-error next/og img element */}
+        <img
+          src={logoSrc}
           style={{
-            background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)',
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            color: 'transparent',
-            fontSize: 20,
-            fontWeight: 900,
-            fontFamily: 'sans-serif',
-            lineHeight: 1,
+            width: '80%',
+            height: '80%',
+            objectFit: 'contain',
           }}
-        >
-          B
-        </span>
+        />
       </div>
     ),
     { ...size },

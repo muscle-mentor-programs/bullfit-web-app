@@ -1,14 +1,19 @@
 import { ImageResponse } from 'next/og'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 export const size = { width: 180, height: 180 }
 export const contentType = 'image/png'
 
 export default function AppleIcon() {
+  const logoData = readFileSync(join(process.cwd(), 'public/bull-logo.png'))
+  const logoSrc = `data:image/png;base64,${logoData.toString('base64')}`
+
   return new ImageResponse(
     (
       <div
         style={{
-          background: 'radial-gradient(circle at 35% 35%, #1E1E1E, #000000)',
+          background: '#000000',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -17,20 +22,15 @@ export default function AppleIcon() {
           borderRadius: 40,
         }}
       >
-        <span
+        {/* @ts-expect-error next/og img element */}
+        <img
+          src={logoSrc}
           style={{
-            background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)',
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            color: 'transparent',
-            fontSize: 120,
-            fontWeight: 900,
-            fontFamily: 'sans-serif',
-            lineHeight: 1,
+            width: '75%',
+            height: '75%',
+            objectFit: 'contain',
           }}
-        >
-          B
-        </span>
+        />
       </div>
     ),
     { ...size },
