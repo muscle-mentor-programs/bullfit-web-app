@@ -22,7 +22,6 @@ export default function AppleIcon() {
           borderRadius: 40,
         }}
       >
-        {/* @ts-expect-error next/og img element */}
         <img
           src={logoSrc}
           style={{

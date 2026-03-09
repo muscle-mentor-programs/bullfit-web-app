@@ -21,7 +21,6 @@ export default function Icon() {
           justifyContent: 'center',
         }}
       >
-        {/* @ts-expect-error next/og img element */}
         <img
           src={logoSrc}
           style={{
