@@ -217,20 +217,20 @@ a[role="button"]:active,
 .page-hero {
   position: relative;
   overflow: hidden;
-  background: #111111;
-  background-image: repeating-linear-gradient(
-    -45deg, transparent, transparent 40px,
-    rgba(255,255,255,0.012) 40px, rgba(255,255,255,0.012) 41px
-  );
+  background: #FFFFFF;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08), 0 1px 0 rgba(0,0,0,0.04);
+  z-index: 1;
 }
 .hero-accent-bar {
   height: 3px;
   background: linear-gradient(90deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%);
 }
+/* .hero-glow kept for compatibility — no-op on white */
 .hero-glow {
   position: absolute;
   border-radius: 9999px;
   pointer-events: none;
+  display: none;
 }
 .shadow-neon-cyan { box-shadow: var(--shadow-neon-cyan); }
 .shadow-neon-pink  { box-shadow: var(--shadow-neon-pink); }

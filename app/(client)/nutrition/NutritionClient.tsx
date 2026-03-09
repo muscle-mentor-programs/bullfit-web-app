@@ -165,12 +165,12 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
           <div className="px-5 pt-4 pb-7 relative flex items-end justify-between">
             <div>
               <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
-                color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
+                color: '#9A9A9A', textTransform: 'uppercase' }}>
                 DAILY TRACKING
               </p>
               <h1 style={{ fontFamily: 'var(--font-condensed)', fontSize: 40, fontWeight: 900,
                 letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.05,
-                color: '#FFFFFF', marginTop: 4 }}>
+                color: '#0F0F0F', marginTop: 4 }}>
                 NUTRITION
               </h1>
             </div>
@@ -184,8 +184,6 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
               </a>
             )}
           </div>
-          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 28,
-            background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none' }} />
         </div>
 
         {/* Date navigation */}

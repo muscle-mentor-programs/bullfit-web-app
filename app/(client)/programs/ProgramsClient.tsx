@@ -262,19 +262,17 @@ export function ProgramsClient({
           background: 'radial-gradient(circle, rgba(207,0,255,0.12) 0%, transparent 70%)',
           filter: 'blur(30px)',
         }} />
-        <div className="px-5 pt-4 pb-7 relative">
+        <div className="px-5 pt-4 pb-5 relative">
           <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
-            color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
+            color: '#9A9A9A', textTransform: 'uppercase' }}>
             COACH-BUILT
           </p>
           <h1 style={{ fontFamily: 'var(--font-condensed)', fontSize: 40, fontWeight: 900,
             letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.05,
-            color: '#FFFFFF', marginTop: 4 }}>
+            color: '#0F0F0F', marginTop: 4 }}>
             PROGRAMS
           </h1>
         </div>
-        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 28,
-          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none' }} />
       </div>
 
       {/* ── Subscription unlock banner ────────────────────────────────── */}

@@ -136,13 +136,14 @@ function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
       style={{ background: 'var(--color-surface)' }}
     >
       {/* Product image */}
-      <div className="relative w-full h-52 overflow-hidden" style={{ background: 'var(--color-surface-2)' }}>
+      <div className="relative w-full h-52 overflow-hidden bg-white">
         <Image
           src={product.image}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-contain p-4"
+          style={{ mixBlendMode: 'multiply' }}
           priority={product.id === 'bodacious-pre'}
         />
         {product.badge && (
@@ -213,13 +214,14 @@ function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
       style={{ background: 'var(--color-surface)', borderColor: sub.accentColor + '44' }}
     >
       {/* Product image */}
-      <div className="relative w-full h-40 overflow-hidden" style={{ background: 'var(--color-surface-2)' }}>
+      <div className="relative w-full h-40 overflow-hidden bg-white">
         <Image
           src={sub.image}
           alt={sub.name}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-contain p-4"
+          style={{ mixBlendMode: 'multiply' }}
         />
         {/* Scanner unlock badge — always visible */}
         <div
@@ -312,19 +314,17 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
           background: 'radial-gradient(circle, rgba(207,0,255,0.12) 0%, transparent 70%)',
           filter: 'blur(30px)',
         }} />
-        <div className="px-5 pt-4 pb-7 relative">
+        <div className="px-5 pt-4 pb-5 relative">
           <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
-            color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
+            color: '#9A9A9A', textTransform: 'uppercase' }}>
             PHARMACIST-FORMULATED
           </p>
           <h1 style={{ fontFamily: 'var(--font-condensed)', fontSize: 40, fontWeight: 900,
             letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.05,
-            color: '#FFFFFF', marginTop: 4 }}>
+            color: '#0F0F0F', marginTop: 4 }}>
             SHOP
           </h1>
         </div>
-        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 28,
-          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none' }} />
       </div>
 
       {/* ── Promo Banner ─────────────────────────────────────────────────── */}

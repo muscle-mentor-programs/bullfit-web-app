@@ -17,17 +17,20 @@ export default function AppleIcon() {
           width: '100%',
           height: '100%',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           justifyContent: 'center',
-          borderRadius: 40,
+          overflow: 'hidden',
         }}
       >
         <img
           src={logoSrc}
           style={{
-            width: '92%',
-            height: '92%',
+            width: '165%',
+            height: '165%',
             objectFit: 'contain',
+            objectPosition: 'center top',
+            marginTop: '-8%',
+            marginLeft: '-32%',
           }}
         />
       </div>

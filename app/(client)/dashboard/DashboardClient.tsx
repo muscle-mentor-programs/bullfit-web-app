@@ -194,7 +194,7 @@ export function DashboardClient({
           filter: 'blur(30px)',
         }} />
 
-        <div className="px-5 pt-5 pb-9 relative">
+        <div className="px-5 pt-5 pb-6 relative">
           {/* Eyebrow with gradient dash */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
             <div style={{
@@ -203,7 +203,7 @@ export function DashboardClient({
             }} />
             <p style={{
               fontSize: 11, fontWeight: 900, letterSpacing: '0.16em',
-              color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase',
+              color: '#9A9A9A', textTransform: 'uppercase',
             }}>
               {greeting}
             </p>
@@ -213,7 +213,7 @@ export function DashboardClient({
           <h1 style={{
             fontFamily: 'var(--font-condensed)', fontSize: 52, fontWeight: 900,
             letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.0,
-            background: 'linear-gradient(135deg, #FFFFFF 0%, #33CBFF 55%, #CF00FF 100%)',
+            background: 'linear-gradient(135deg, #111111 0%, #00BEFF 55%, #CF00FF 100%)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           }}>
             {firstName}
@@ -222,17 +222,11 @@ export function DashboardClient({
           {/* Date */}
           <p style={{
             fontSize: 11, fontWeight: 700, letterSpacing: '0.12em',
-            color: 'rgba(255,255,255,0.3)', marginTop: 6, textTransform: 'uppercase',
+            color: '#9A9A9A', marginTop: 6, textTransform: 'uppercase',
           }}>
             {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase()}
           </p>
         </div>
-
-        {/* Fade to light body */}
-        <div style={{
-          position: 'absolute', left: 0, right: 0, bottom: 0, height: 32,
-          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none',
-        }} />
       </div>
 
       <div className="flex flex-col gap-4 px-4">

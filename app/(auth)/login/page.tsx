@@ -1,9 +1,8 @@
-﻿'use client'
+'use client'
 
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
 import { Eye, EyeOff, Loader2, Mail, Share } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useState } from 'react'
@@ -60,13 +59,12 @@ function LoginContent() {
         return
       }
 
-      const { data: userData } = await supabase
+      await supabase
         .from('users')
         .select('role')
         .eq('id', user.id)
         .single()
 
-      // Always land on the BULLFIT client app — admin panel accessible via /admin/dashboard
       router.push(next)
     } catch {
       setError('Something went wrong. Please try again.')
@@ -89,175 +87,162 @@ function LoginContent() {
   const canSubmit = email.trim().length > 0 && password.length > 0
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#111111]">
+    <div className="flex flex-col min-h-screen bg-background">
 
-      {/* ── Dark Hero Splash ── */}
-      <div className="page-hero" style={{ minHeight: '42vh', paddingTop: 'env(safe-area-inset-top)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+      {/* ── White Elevated Brand Header ── */}
+      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="hero-accent-bar" />
+        <div className="flex flex-col items-center px-5 pt-8 pb-8">
 
-        {/* Cyan glow — center top */}
-        <div className="hero-glow" style={{
-          width: 260, height: 260, top: -80, left: '50%', transform: 'translateX(-50%)',
-          background: 'radial-gradient(circle, rgba(0,190,255,0.22) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }} />
-        {/* Purple glow — bottom right */}
-        <div className="hero-glow" style={{
-          width: 160, height: 160, bottom: 20, right: -20,
-          background: 'radial-gradient(circle, rgba(207,0,255,0.15) 0%, transparent 70%)',
-          filter: 'blur(30px)',
-        }} />
-
-        <div className="flex flex-col items-center pb-10 pt-16 relative">
           {/* BF Badge */}
           <div
-            className="flex h-[80px] w-[80px] items-center justify-center rounded-2xl mb-5"
+            className="flex h-[76px] w-[76px] items-center justify-center rounded-2xl mb-4"
             style={{
               background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)',
-              boxShadow: '0 0 30px rgba(0,190,255,0.35), 0 8px 24px rgba(0,0,0,0.5)',
+              boxShadow: '0 0 20px rgba(0,190,255,0.30), 0 4px 16px rgba(0,0,0,0.12)',
             }}
           >
-            <span style={{ fontSize: 36, fontWeight: 900, color: '#FFFFFF', fontFamily: 'var(--font-condensed)', lineHeight: 1 }}>BF</span>
+            <span style={{
+              fontSize: 32, fontWeight: 900, color: '#FFFFFF',
+              fontFamily: 'var(--font-condensed)', lineHeight: 1,
+            }}>BF</span>
           </div>
 
-          {/* Brand name */}
+          {/* Brand name — dark-to-cyan gradient */}
           <h1 style={{
-            fontFamily: 'var(--font-condensed)', fontSize: 28, fontWeight: 900,
-            letterSpacing: '0.12em', textTransform: 'uppercase',
-            background: 'linear-gradient(135deg, #FFFFFF 0%, #33CBFF 55%, #CF00FF 100%)',
+            fontFamily: 'var(--font-condensed)', fontSize: 26, fontWeight: 900,
+            letterSpacing: '0.12em', textTransform: 'uppercase', lineHeight: 1,
+            background: 'linear-gradient(135deg, #111111 0%, #00BEFF 60%, #CF00FF 100%)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           }}>BULLFIT</h1>
 
-          <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginTop: 6 }}>
+          <p style={{
+            fontSize: 10, fontWeight: 900, letterSpacing: '0.18em',
+            color: '#9A9A9A', textTransform: 'uppercase', marginTop: 6,
+          }}>
             TRAIN LIKE YOU MEAN IT
           </p>
         </div>
-
-        {/* Fade to light */}
-        <div style={{
-          position: 'absolute', left: 0, right: 0, bottom: 0, height: 48,
-          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none',
-        }} />
       </div>
 
       {/* ── Form Section ── */}
-      <div className="flex flex-col items-center px-5 -mt-4 pb-10" style={{ background: '#F5F5F3' }}>
+      <div className="flex flex-col items-center px-5 pt-6 pb-10">
 
-            {/* Error banner */}
-      {error && (
-        <div className="mb-4 w-full max-w-sm rounded-xl border border-[#FF3060]/30 bg-[#FF3060]/10 px-4 py-3">
-          <p className="text-xs font-medium text-[#FF3060] normal-case">{error}</p>
-        </div>
-      )}
-
-      {/* Login card */}
-      <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-6 shadow-sm">
-        <div className="h-0.5 w-full mb-5 rounded-full" style={{ background: BULL_G }} />
-
-        <h2 className="mb-5 text-sm font-black tracking-widest text-text-primary">SIGN IN</h2>
-
-        {/* Email/password form */}
-        <form onSubmit={handleEmailLogin} className="space-y-4 mb-5">
-          <div>
-            <label className="block text-[11px] font-black tracking-widest text-text-muted mb-2">EMAIL</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              autoComplete="email"
-              required
-              className={cn(
-                'w-full h-12 px-4 rounded-xl border border-border',
-                'bg-background text-sm text-text-primary placeholder:text-text-muted',
-                'focus:outline-none focus:border-[#00BEFF] focus:ring-2 focus:ring-[#00BEFF]/20',
-                'transition-all duration-150 normal-case',
-              )}
-            />
+        {/* Error banner */}
+        {error && (
+          <div className="mb-4 w-full max-w-sm rounded-xl border border-[#FF3060]/30 bg-[#FF3060]/10 px-4 py-3">
+            <p className="text-xs font-medium text-[#FF3060] normal-case">{error}</p>
           </div>
+        )}
 
-          <div>
-            <label className="block text-[11px] font-black tracking-widest text-text-muted mb-2">PASSWORD</label>
-            <div className="relative">
+        {/* Login card */}
+        <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-6 shadow-sm">
+          <div className="h-[3px] w-full mb-5 rounded-full" style={{ background: 'linear-gradient(90deg, #00BEFF, #CF00FF, #FF0087)' }} />
+
+          <h2 className="mb-5 text-sm font-black tracking-widest text-text-primary">SIGN IN</h2>
+
+          {/* Email/password form */}
+          <form onSubmit={handleEmailLogin} className="space-y-4 mb-5">
+            <div>
+              <label className="block text-[11px] font-black tracking-widest text-text-muted mb-2">EMAIL</label>
               <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                autoComplete="current-password"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                autoComplete="email"
                 required
                 className={cn(
-                  'w-full h-12 px-4 pr-11 rounded-xl border border-border',
+                  'w-full h-12 px-4 rounded-xl border border-border',
                   'bg-background text-sm text-text-primary placeholder:text-text-muted',
                   'focus:outline-none focus:border-[#00BEFF] focus:ring-2 focus:ring-[#00BEFF]/20',
-                  'transition-all duration-150',
+                  'transition-all duration-150 normal-case',
                 )}
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                tabIndex={-1}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-secondary transition-colors"
-              >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-              </button>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-black tracking-widest text-text-muted mb-2">PASSWORD</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                  required
+                  className={cn(
+                    'w-full h-12 px-4 pr-11 rounded-xl border border-border',
+                    'bg-background text-sm text-text-primary placeholder:text-text-muted',
+                    'focus:outline-none focus:border-[#00BEFF] focus:ring-2 focus:ring-[#00BEFF]/20',
+                    'transition-all duration-150',
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-secondary transition-colors"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || !canSubmit}
+              className={cn(
+                'w-full h-12 rounded-xl text-sm font-black tracking-widest',
+                'text-white active:scale-[0.98]',
+                'disabled:opacity-40 disabled:pointer-events-none',
+                'flex items-center justify-center gap-2.5 transition-all duration-150',
+              )}
+              style={{ background: BULL_G }}
+            >
+              {loading ? <Loader2 size={18} className="animate-spin" /> : <><Mail size={16} />SIGN IN</>}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="relative mb-5">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-surface px-3 text-[11px] font-black tracking-widest text-text-muted">OR</span>
             </div>
           </div>
 
+          {/* Google */}
           <button
-            type="submit"
-            disabled={loading || !canSubmit}
+            onClick={handleGoogleLogin}
+            disabled={googleLoading}
             className={cn(
-              'w-full h-12 rounded-xl text-sm font-black tracking-widest',
-              'text-white active:scale-[0.98]',
+              'flex w-full items-center justify-center gap-3 h-12 rounded-xl',
+              'border border-border bg-background',
+              'text-sm font-medium text-text-primary normal-case',
+              'hover:bg-surface-2 active:scale-[0.98] transition-all duration-150',
               'disabled:opacity-40 disabled:pointer-events-none',
-              'flex items-center justify-center gap-2.5 transition-all duration-150',
             )}
-            style={{ background: BULL_G }}
           >
-            {loading ? <Loader2 size={18} className="animate-spin" /> : <><Mail size={16} />SIGN IN</>}
+            {googleLoading ? <Loader2 size={16} className="animate-spin" /> : <><GoogleIcon />Continue with Google</>}
           </button>
-        </form>
-
-        {/* Divider */}
-        <div className="relative mb-5">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-border" />
-          </div>
-          <div className="relative flex justify-center">
-            <span className="bg-surface px-3 text-[11px] font-black tracking-widest text-text-muted">OR</span>
-          </div>
         </div>
 
-        {/* Google */}
-        <button
-          onClick={handleGoogleLogin}
-          disabled={googleLoading}
-          className={cn(
-            'flex w-full items-center justify-center gap-3 h-12 rounded-xl',
-            'border border-border bg-background',
-            'text-sm font-medium text-text-primary normal-case',
-            'hover:bg-surface-2 active:scale-[0.98] transition-all duration-150',
-            'disabled:opacity-40 disabled:pointer-events-none',
-          )}
-        >
-          {googleLoading ? <Loader2 size={16} className="animate-spin" /> : <><GoogleIcon />Continue with Google</>}
-        </button>
-      </div>
+        <p className="mt-6 text-center text-[11px] tracking-wider text-text-muted leading-relaxed">
+          OPEN IN MOBILE BROWSER →{' '}
+          <span className="inline-flex items-center gap-0.5 text-text-secondary">
+            <Share size={10} strokeWidth={2.5} />{' '}SHARE
+          </span>
+          {' '}→ ADD TO HOME SCREEN
+        </p>
 
-      <p className="mt-6 text-center text-[11px] tracking-wider text-text-muted leading-relaxed">
-        OPEN IN MOBILE BROWSER →{' '}
-        <span className="inline-flex items-center gap-0.5 text-text-secondary">
-          <Share size={10} strokeWidth={2.5} />{' '}SHARE
-        </span>
-        {' '}→ ADD TO HOME SCREEN
-      </p>
-
-      <p className="mt-3 text-center text-[11px] tracking-wider text-text-muted leading-relaxed">
-        BY CONTINUING YOU AGREE TO OUR{' '}
-        <Link href="/terms" className="text-text-secondary hover:text-[#00BEFF] transition-colors">TERMS</Link>{' '}AND{' '}
-        <Link href="/privacy" className="text-text-secondary hover:text-[#00BEFF] transition-colors">PRIVACY POLICY</Link>.
-      </p>
+        <p className="mt-3 text-center text-[11px] tracking-wider text-text-muted leading-relaxed">
+          BY CONTINUING YOU AGREE TO OUR{' '}
+          <Link href="/terms" className="text-text-secondary hover:text-[#00BEFF] transition-colors">TERMS</Link>{' '}AND{' '}
+          <Link href="/privacy" className="text-text-secondary hover:text-[#00BEFF] transition-colors">PRIVACY POLICY</Link>.
+        </p>
       </div>
     </div>
   )
