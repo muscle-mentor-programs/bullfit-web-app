@@ -69,7 +69,7 @@ const SUPPLEMENTS = [
     accentColor: '#44AADF',
     category: 'Hydration',
     flavors: ['Tropical Variety Pouch', 'Tropical Variety Box'],
-    image: '/products/hydrate.jpg',
+    image: '/products/hydrate.png',
     url: 'https://www.bullfit.com/products/hydrate',
   },
 ]
@@ -109,7 +109,7 @@ const SUPPSCRIPTIONS = [
     retailPrice: 19.95,
     savings: 'SUBSCRIBE & SAVE',
     frequencies: ['Every 30 days', 'Every 45 days', 'Every 60 days'],
-    image: '/products/hydrate.jpg',
+    image: '/products/hydrate.png',
     accentColor: '#44AADF',
     url: 'https://www.bullfit.com/products/hydrate',
   },
