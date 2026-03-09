@@ -1,7 +1,7 @@
 ﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
-import { ExternalLink, ShoppingCart, Star, Zap, Tag, Package } from 'lucide-react'
+import { ExternalLink, ShoppingCart, Star, Zap, Tag, Package, ScanBarcode, Truck, RefreshCcw, Gift } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -23,7 +23,7 @@ const SUPPLEMENTS = [
     badgeColor: '#FF0087',
     accentColor: '#00BEFF',
     category: 'Pre-Workout',
-    flavors: ['Blue Rizz-Berry', 'Pina Coolada', 'Coconut Lime', 'Fruit Pump'],
+    flavors: ['Blue Rizz-Berry', 'Pina Coolada', 'Sour Apple', 'Coconut Lime', 'Fruit Pump', 'Freedom Pop'],
     image: '/products/bodacious.png',
     url: 'https://www.bullfit.com/products/bodacious-pre-workout',
   },
@@ -38,7 +38,7 @@ const SUPPLEMENTS = [
     badgeColor: '#CF00FF',
     accentColor: '#CF00FF',
     category: 'Pre-Workout',
-    flavors: ['Tropical Punch', 'Peach Mango', 'Kiwi Strawberry', 'Pina Colada'],
+    flavors: ['Tropical Punch', 'Peach Mango', 'Kiwi Strawberry', 'Pina Colada', 'Cherry Limeade', 'Freedom Pop'],
     image: '/products/cowabunga.png',
     url: 'https://www.bullfit.com/products/cowabunga-daily-pick-me-up-pre-workout',
   },
@@ -72,39 +72,46 @@ const SUPPLEMENTS = [
     image: '/products/hydrate.jpg',
     url: 'https://www.bullfit.com/products/hydrate',
   },
-  {
-    id: 'creatine-mono',
-    name: 'Creatine Monohydrate',
-    tagline: 'PURE FORMULA',
-    description: '5g micronized creatine per serving. Unflavored. Zero fillers.',
-    price: 29.95,
-    salePrice: null,
-    badge: null,
-    badgeColor: '#22C55E',
-    accentColor: '#CF00FF',
-    category: 'Performance',
-    flavors: ['Unflavored'],
-    image: '/products/creatine.png',
-    url: 'https://www.bullfit.com/products/based-creatine-monohydrate',
-  },
 ]
 
+// Per-product subscriptions: each unlocks the barcode scanner
+// Delivery frequency options: every 30, 45, or 60 days
 const SUPPSCRIPTIONS = [
   {
-    id: 'supp-pre',
-    name: 'Pre-Workout SuppScription',
-    description: 'Never run out. Monthly delivery of your favorite pre-workout.',
-    price: 39.99,
-    savings: 'SAVE 20%',
-    perks: ['Free shipping', 'Barcode scanner unlock', 'Priority access to new flavors'],
+    id: 'supp-bodacious',
+    name: 'Bodacious SuppScription',
+    tagline: 'HIGH-STIM • AUTO-SHIP',
+    description: 'High-stim pre-workout on auto-ship. Choose your flavor, pick your frequency. Never run out before a training session.',
+    retailPrice: 59.95,
+    savings: 'SUBSCRIBE & SAVE',
+    frequencies: ['Every 30 days', 'Every 45 days', 'Every 60 days'],
+    image: '/products/bodacious.png',
+    accentColor: '#00BEFF',
+    url: 'https://www.bullfit.com/products/bodacious-pre-workout',
   },
   {
-    id: 'supp-stack',
-    name: 'Full Stack SuppScription',
-    description: 'Pre-workout + creatine + hydration pack. The complete setup.',
-    price: 89.99,
-    savings: 'SAVE 25%',
-    perks: ['Free shipping', 'Barcode scanner unlock', 'Exclusive member pricing', 'Free shaker bottle'],
+    id: 'supp-cowabunga',
+    name: 'Cowabunga SuppScription',
+    tagline: 'DAILY DRIVER • AUTO-SHIP',
+    description: 'Your everyday pre-workout on auto-ship. Consistent training starts with consistent supply.',
+    retailPrice: 49.95,
+    savings: 'SUBSCRIBE & SAVE',
+    frequencies: ['Every 30 days', 'Every 45 days', 'Every 60 days'],
+    image: '/products/cowabunga.png',
+    accentColor: '#CF00FF',
+    url: 'https://www.bullfit.com/products/cowabunga-daily-pick-me-up-pre-workout',
+  },
+  {
+    id: 'supp-hydrate',
+    name: 'Hydrate SuppScription',
+    tagline: 'ELECTROLYTES • AUTO-SHIP',
+    description: 'Zero sugar slap packs delivered on your schedule. Stay hydrated every single day.',
+    retailPrice: 19.95,
+    savings: 'SUBSCRIBE & SAVE',
+    frequencies: ['Every 30 days', 'Every 45 days', 'Every 60 days'],
+    image: '/products/hydrate.jpg',
+    accentColor: '#44AADF',
+    url: 'https://www.bullfit.com/products/hydrate',
   },
 ]
 
@@ -198,17 +205,40 @@ function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
 
 function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
   return (
-    <div
-      className="rounded-2xl border overflow-hidden"
-      style={{
-        background: 'var(--color-surface)',
-        borderColor: '#CF00FF44',
-      }}
+    <a
+      href={sub.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-2xl border overflow-hidden"
+      style={{ background: 'var(--color-surface)', borderColor: sub.accentColor + '44' }}
     >
-      <div className="h-1 w-full" style={{ background: BULL_G }} />
+      {/* Product image */}
+      <div className="relative w-full h-40 overflow-hidden" style={{ background: 'var(--color-surface-2)' }}>
+        <Image
+          src={sub.image}
+          alt={sub.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-contain p-4"
+        />
+        {/* Scanner unlock badge — always visible */}
+        <div
+          className="absolute bottom-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-black tracking-widest text-black"
+          style={{ background: GOLD_G }}
+        >
+          <ScanBarcode size={10} />
+          SCANNER UNLOCKED
+        </div>
+      </div>
+
+      {/* Accent bar */}
+      <div className="h-1 w-full" style={{ backgroundColor: sub.accentColor }} />
+
       <div className="p-4">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] font-black tracking-widest text-[#CF00FF]">SUPPSCRIPTION™</span>
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-[10px] font-black tracking-widest" style={{ color: sub.accentColor }}>
+            SUPPSCRIPTION™
+          </span>
           <span
             className="px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest"
             style={{ background: GOLD_G, color: '#000' }}
@@ -216,33 +246,40 @@ function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
             {sub.savings}
           </span>
         </div>
-        <h3 className="text-base font-black text-text-primary mb-1">{sub.name.toUpperCase()}</h3>
+
+        <h3 className="text-base font-black text-text-primary mt-1 mb-0.5">{sub.name.toUpperCase()}</h3>
+        <p className="text-[10px] font-black tracking-widest mb-2" style={{ color: sub.accentColor }}>{sub.tagline}</p>
         <p className="text-xs text-text-muted mb-3 normal-case leading-relaxed">{sub.description}</p>
-        <ul className="mb-4 space-y-1">
-          {sub.perks.map(p => (
-            <li key={p} className="flex items-center gap-2 text-xs text-text-secondary normal-case">
-              <Star size={10} className="text-[#FFD600] flex-shrink-0" fill="#FFD600" />
-              {p}
-            </li>
-          ))}
-        </ul>
-        <div className="flex items-center justify-between">
-          <div>
-            <span className="text-xl font-black text-text-primary">${sub.price}</span>
-            <span className="text-xs text-text-muted ml-1">/mo</span>
+
+        {/* Frequency options */}
+        <div className="mb-4">
+          <p className="text-[10px] font-black tracking-widest text-text-muted mb-1.5">DELIVERY FREQUENCY</p>
+          <div className="flex gap-1.5">
+            {sub.frequencies.map(f => (
+              <span key={f} className="text-[9px] px-2 py-1 rounded-lg border border-border text-text-secondary font-semibold normal-case">
+                {f}
+              </span>
+            ))}
           </div>
-          <a
-            href="https://www.bullfit.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl text-xs font-black text-black flex items-center gap-1.5"
-            style={{ background: BULL_G }}
-          >
-            SUBSCRIBE
-          </a>
+        </div>
+
+        {/* Perks row */}
+        <div className="flex items-center gap-3 mb-4 text-[10px] text-text-secondary normal-case">
+          <span className="flex items-center gap-1"><Truck size={10} /> Free shipping</span>
+          <span className="flex items-center gap-1"><RefreshCcw size={10} /> Pause anytime</span>
+          <span className="flex items-center gap-1"><Gift size={10} /> New flavor access</span>
+        </div>
+
+        {/* CTA */}
+        <div
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black text-white"
+          style={{ background: BULL_G }}
+        >
+          <ScanBarcode size={13} />
+          SUBSCRIBE + UNLOCK SCANNER
         </div>
       </div>
-    </div>
+    </a>
   )
 }
 
@@ -352,25 +389,54 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
 
         {activeTab === 'suppscriptions' && (
           <>
-            <div className="text-center py-2">
-              <h2 className="text-xl font-black bull-gradient-text">SUPPSCRIPTIONS™</h2>
-              <p className="text-xs text-text-muted normal-case mt-1">Subscribe & Save — never run out of your favorites</p>
+            {/* Scanner unlock hero */}
+            <div
+              className="rounded-2xl overflow-hidden border border-[#FFD60033]"
+              style={{ background: 'var(--color-surface)' }}
+            >
+              <div className="h-1 w-full" style={{ background: GOLD_G }} />
+              <div className="px-4 py-4 flex items-center gap-4">
+                <div
+                  className="w-12 h-12 rounded-2xl flex-shrink-0 flex items-center justify-center"
+                  style={{ background: GOLD_G }}
+                >
+                  <ScanBarcode size={22} className="text-black" />
+                </div>
+                <div>
+                  <p className="text-sm font-black text-text-primary">ANY SUPPSCRIPTION</p>
+                  <p className="text-sm font-black text-text-primary">UNLOCKS THE BARCODE SCANNER</p>
+                  <p className="text-[10px] text-text-muted normal-case mt-0.5">
+                    Scan any packaged food in the Nutrition tab — log meals in seconds
+                  </p>
+                </div>
+              </div>
             </div>
+
+            <div className="text-center pt-1">
+              <h2 className="text-xl font-black bull-gradient-text">SUPPSCRIPTIONS™</h2>
+              <p className="text-xs text-text-muted normal-case mt-1">
+                Subscribe to Bodacious, Cowabunga, or Hydrate — save on every order
+              </p>
+            </div>
+
             {SUPPSCRIPTIONS.map(sub => (
               <SuppScriptionCard key={sub.id} sub={sub} />
             ))}
+
             <div
-              className="rounded-2xl p-4 border border-[#FFD60033] text-center"
-              style={{ background: 'var(--color-surface)' }}
+              className="rounded-xl px-4 py-3 flex items-center gap-3 border"
+              style={{ background: 'rgba(0,190,255,0.06)', borderColor: 'rgba(0,190,255,0.15)' }}
             >
-              <p className="text-xs font-black tracking-widest text-[#FFD600] mb-1">SUPPSCRIPTION PERKS</p>
-              <p className="text-[10px] text-text-muted normal-case mb-3">All SuppScription plans unlock the barcode scanner in the Nutrition tab</p>
-              <Link
-                href="/nutrition"
-                className="inline-flex items-center gap-1.5 text-xs font-black text-[#00BEFF]"
-              >
-                Go to Nutrition tracker →
-              </Link>
+              <ScanBarcode size={14} className="text-[#00BEFF] flex-shrink-0" />
+              <div>
+                <p className="text-xs font-black text-[#00BEFF]">ALREADY SUBSCRIBED?</p>
+                <Link
+                  href="/nutrition"
+                  className="text-[10px] text-text-muted normal-case underline-offset-2 underline"
+                >
+                  Open the Nutrition tab to scan barcodes →
+                </Link>
+              </div>
             </div>
           </>
         )}

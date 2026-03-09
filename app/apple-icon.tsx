@@ -25,8 +25,8 @@ export default function AppleIcon() {
         <img
           src={logoSrc}
           style={{
-            width: '75%',
-            height: '75%',
+            width: '92%',
+            height: '92%',
             objectFit: 'contain',
           }}
         />
