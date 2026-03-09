@@ -356,8 +356,8 @@ function ProgramsTab({ programs, isSubscribed }: { programs: ProgramItem[]; isSu
         >
           <div className="h-0.5 w-full" style={{ background: 'linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark))' }} />
           <div className="px-4 py-4">
-            <p className="text-sm font-black text-text-primary mb-1">Unlock all programs — $29.95/mo</p>
-            <p className="text-xs text-text-muted mb-3">Start your 7-day free trial today. No charge until trial ends.</p>
+            <p className="text-sm font-black text-text-primary mb-1">Unlock all programs</p>
+            <p className="text-xs text-text-muted mb-3">Purchase programs individually or join a SuppScription plan.</p>
             <button
               onClick={() => router.push('/subscribe')}
               className="h-9 px-4 rounded-xl text-white text-xs font-black tracking-widest shadow-primary hover:shadow-md active:scale-[0.98] transition-all"

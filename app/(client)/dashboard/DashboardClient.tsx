@@ -249,7 +249,7 @@ export function DashboardClient({
               </div>
               <h2 className="text-lg font-black text-text-primary mb-1">Unlock Full Access</h2>
               <p className="text-xs text-text-muted mb-4 normal-case">
-                Get all influencer programs + nutrition tracking tools. Starting from $29.95/mo.
+                Purchase individual programs or join a Subscribe &amp; Save SuppScription.
               </p>
               <Link
                 href="/subscribe"

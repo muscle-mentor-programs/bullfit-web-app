@@ -5,8 +5,9 @@ import { useNutritionLog } from '@/hooks/useNutritionLog'
 import { cn } from '@/lib/utils/cn'
 import type { FoodLogEntry, MealType, UsdaFoodSearchResult } from '@/types'
 import { format, addDays, subDays, isToday } from 'date-fns'
-import { ChevronLeft, ChevronRight, Plus, Trash2 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Plus, ScanBarcode, Trash2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const MEALS: { type: MealType; label: string }[] = [
   { type: 'breakfast', label: 'Breakfast' },
@@ -56,6 +57,8 @@ function MacroTile({ label, value, goal, color }: { label: string; value: number
 
 
 export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: GoalShape; isAdmin?: boolean; hasSuppScription?: boolean }) {
+  const router = useRouter()
+  const [showScannerLock, setShowScannerLock] = useState(false)
   const [viewDate, setViewDate] = useState(new Date())
   const [modalOpen, setModalOpen] = useState(false)
   const [activeMeal, setActiveMeal] = useState<MealType>('breakfast')
@@ -175,13 +178,14 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
               </h1>
             </div>
             {!hasSuppScription && (
-              <a
-                href="/shop"
+              <button
+                type="button"
+                onClick={() => setShowScannerLock(true)}
                 className="text-[9px] font-black tracking-widest px-2 py-1 rounded-lg mb-1"
                 style={{ background: 'rgba(0,190,255,0.20)', color: '#00BEFF', border: '1px solid rgba(0,190,255,0.30)' }}
               >
                 SCANNER LOCKED
-              </a>
+              </button>
             )}
           </div>
         </div>
@@ -358,6 +362,58 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
         initialServingAmount={viewFoodServingAmount}
         initialUseGrams={viewFoodUseGrams}
       />
+
+      {/* Scanner lock popup */}
+      {showScannerLock && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center"
+          style={{ background: 'rgba(0,0,0,0.65)' }}
+          onClick={() => setShowScannerLock(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-t-3xl overflow-hidden animate-fade-in-up"
+            style={{ background: 'var(--color-surface)' }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* 3-color gradient bar */}
+            <div style={{ height: 3, background: 'linear-gradient(90deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }} />
+            <div className="p-6 pb-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'rgba(0,190,255,0.12)', border: '1px solid rgba(0,190,255,0.20)' }}
+                >
+                  <ScanBarcode size={22} className="text-[#00BEFF]" />
+                </div>
+                <div>
+                  <p className="text-sm font-black text-text-primary">SCANNER LOCKED</p>
+                  <p className="text-xs text-text-muted mt-0.5 normal-case">SuppScription required</p>
+                </div>
+              </div>
+              <p className="text-sm text-text-secondary normal-case leading-relaxed mb-6">
+                Join any Subscribe &amp; Save SuppScription to access the barcode scanner.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowScannerLock(false)}
+                  className="flex-1 h-11 rounded-xl border border-border text-sm font-black text-text-muted"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setShowScannerLock(false); router.push('/shop') }}
+                  className="flex-1 h-11 rounded-xl text-black text-sm font-black tracking-widest"
+                  style={{ background: '#00BEFF' }}
+                >
+                  VIEW SUPPSCRIPTIONS
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

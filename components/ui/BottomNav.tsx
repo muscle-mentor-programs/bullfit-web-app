@@ -16,7 +16,7 @@ const TABS: TabDef[] = [
   { href: '/dashboard',  label: 'Home',     icon: Home },
   { href: '/shop',       label: 'Shop',     icon: ShoppingBag },
   { href: '/programs',   label: 'Programs', icon: Trophy },
-  { href: '/nutrition',  label: 'Profile',  icon: User },
+  { href: '/profile',    label: 'Profile',  icon: User },
   { href: '/settings',   label: 'Settings', icon: Settings },
 ]
 

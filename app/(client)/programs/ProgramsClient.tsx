@@ -301,14 +301,14 @@ export function ProgramsClient({
                 <span className="text-[11px] font-black tracking-widest text-[#00BEFF]">UNLOCK ALL PROGRAMS</span>
               </div>
               <p className="text-xs text-text-muted normal-case mb-3">
-                Subscribe to access every program — influencer-led and BULLFIT originals.
+                Purchase individual programs or join a Subscribe &amp; Save SuppScription.
               </p>
               <Link
                 href="/subscribe"
                 className="flex items-center justify-center gap-2 h-11 w-full rounded-xl text-black text-sm font-black tracking-widest"
                 style={{ background: BULL_G }}
               >
-                SUBSCRIBE FROM $29.95/MO
+                JOIN A SUPPSCRIPTION
               </Link>
             </div>
           </div>

@@ -232,6 +232,7 @@ function FoodSearchModal({ isOpen, onClose, mealType, logDate, onAdd, onUpdate, 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [scannerOpen, setScannerOpen] = useState(false)
+  const [showScannerLock, setShowScannerLock] = useState(false)
   const [camPermission, setCamPermission] = useState<'unknown' | 'granted' | 'denied'>('unknown')
 
   // Correction step state
@@ -767,18 +768,18 @@ function FoodSearchModal({ isOpen, onClose, mealType, logDate, onAdd, onUpdate, 
                             <ScanBarcode size={18} />
                           </button>
                         ) : (
-                          <a
-                            href="/shop"
+                          <button
+                            type="button"
+                            onClick={() => setShowScannerLock(true)}
                             className={cn(
                               'w-11 h-11 rounded-xl border border-border bg-surface flex-shrink-0',
                               'flex items-center justify-center text-text-muted relative',
                             )}
-                            title="SuppScription required — tap to subscribe"
                             aria-label="Barcode scanner locked — SuppScription required"
                           >
                             <ScanBarcode size={18} className="opacity-30" />
                             <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#FF0087] flex items-center justify-center text-[8px] font-black text-white">🔒</span>
-                          </a>
+                          </button>
                         )
                       )}
                     </div>
@@ -1224,6 +1225,66 @@ function FoodSearchModal({ isOpen, onClose, mealType, logDate, onAdd, onUpdate, 
             try { localStorage.setItem('mm-cam-ok', '1') } catch {}
           }}
         />
+      )}
+
+      {/* Scanner lock popup */}
+      {isOpen && showScannerLock && (
+        <motion.div
+          key="scanner-lock-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[70] flex items-end justify-center"
+          style={{ background: 'rgba(0,0,0,0.65)' }}
+          onClick={() => setShowScannerLock(false)}
+        >
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 380 }}
+            className="w-full max-w-md mx-0 mb-0 rounded-t-3xl overflow-hidden"
+            style={{ background: 'var(--color-surface)' }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* 3-color gradient bar */}
+            <div style={{ height: 3, background: 'linear-gradient(90deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }} />
+            <div className="p-6 pb-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'rgba(0,190,255,0.12)', border: '1px solid rgba(0,190,255,0.20)' }}
+                >
+                  <ScanBarcode size={22} className="text-[#00BEFF]" />
+                </div>
+                <div>
+                  <p className="text-sm font-black text-text-primary">SCANNER LOCKED</p>
+                  <p className="text-xs text-text-muted mt-0.5 normal-case">SuppScription required</p>
+                </div>
+              </div>
+              <p className="text-sm text-text-secondary normal-case leading-relaxed mb-6">
+                Join any Subscribe &amp; Save SuppScription to access the barcode scanner.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowScannerLock(false)}
+                  className="flex-1 h-11 rounded-xl border border-border text-sm font-black text-text-muted hover:bg-surface-2 transition-colors"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setShowScannerLock(false); router.push('/shop') }}
+                  className="flex-1 h-11 rounded-xl text-black text-sm font-black tracking-widest"
+                  style={{ background: '#00BEFF' }}
+                >
+                  VIEW SUPPSCRIPTIONS
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
       )}
     </AnimatePresence>
   )
