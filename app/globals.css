@@ -45,8 +45,8 @@
   --shadow-accent:  0 2px 12px 0 rgb(207 0 255 / 0.20), 0 1px 4px 0 rgb(207 0 255 / 0.12);
   --shadow-inset: inset 0 1px 3px 0 rgb(0 0 0 / 0.08);
 
-  --font-sans:       "Barlow", system-ui, -apple-system, sans-serif;
-  --font-condensed:  "Barlow Condensed", "Barlow", system-ui, sans-serif;
+  --font-sans:       "Roboto", system-ui, -apple-system, sans-serif;
+  --font-condensed:  "Inter", "Roboto", system-ui, sans-serif;
 
   /* Radii */
   --radius-sm:   2px;
