@@ -54,7 +54,6 @@ function MacroTile({ label, value, goal, color }: { label: string; value: number
   )
 }
 
-const HEADER_G = '#00BEFF'
 
 export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: GoalShape; isAdmin?: boolean; hasSuppScription?: boolean }) {
   const [viewDate, setViewDate] = useState(new Date())
@@ -150,26 +149,43 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
   return (
     <>
       <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
-        {/* ── Gradient Header Card ─────────────────────────────────── */}
-        <div className="px-4 pt-12 pb-4">
-          <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: 'var(--color-background)' }}>
-            <div className="h-1.5 w-full" style={{ background: HEADER_G }} />
-            <div className="px-5 py-5 flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-black tracking-widest text-text-muted">DAILY</p>
-                <h1 className="text-3xl font-black tracking-tight text-text-primary">NUTRITION</h1>
-              </div>
-              {!hasSuppScription && (
-                <a
-                  href="/shop"
-                  className="text-[9px] font-black tracking-widest px-2 py-1 rounded-lg"
-                  style={{ background: 'rgba(0,190,255,0.12)', color: '#00BEFF' }}
-                >
-                  SCANNER LOCKED
-                </a>
-              )}
+        {/* ── Dark BULLFIT Page Hero ─────────────────── */}
+        <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+          <div className="hero-accent-bar" />
+          <div className="hero-glow" style={{
+            width: 200, height: 200, top: -60, right: -40,
+            background: 'radial-gradient(circle, rgba(0,190,255,0.18) 0%, transparent 70%)',
+            filter: 'blur(30px)',
+          }} />
+          <div className="hero-glow" style={{
+            width: 160, height: 160, bottom: -20, left: -30,
+            background: 'radial-gradient(circle, rgba(207,0,255,0.12) 0%, transparent 70%)',
+            filter: 'blur(30px)',
+          }} />
+          <div className="px-5 pt-4 pb-7 relative flex items-end justify-between">
+            <div>
+              <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
+                color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
+                DAILY TRACKING
+              </p>
+              <h1 style={{ fontFamily: 'var(--font-condensed)', fontSize: 40, fontWeight: 900,
+                letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.05,
+                color: '#FFFFFF', marginTop: 4 }}>
+                NUTRITION
+              </h1>
             </div>
+            {!hasSuppScription && (
+              <a
+                href="/shop"
+                className="text-[9px] font-black tracking-widest px-2 py-1 rounded-lg mb-1"
+                style={{ background: 'rgba(0,190,255,0.20)', color: '#00BEFF', border: '1px solid rgba(0,190,255,0.30)' }}
+              >
+                SCANNER LOCKED
+              </a>
+            )}
           </div>
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 28,
+            background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none' }} />
         </div>
 
         {/* Date navigation */}
@@ -200,12 +216,12 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
           style={{ background: 'linear-gradient(to bottom right, var(--color-surface), var(--color-surface-3, var(--color-surface)))' }}
         >
           {/* Gradient top accent line */}
-          <div className="h-1 w-full" style={{ background: HEADER_G }} />
+          <div className="h-1 w-full" style={{ background: '#00BEFF' }} />
 
           <div className="p-5">
             {/* ── Calories ── */}
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-0.5 w-3 rounded-full" style={{ background: HEADER_G }} />
+              <div className="h-0.5 w-3 rounded-full" style={{ background: '#00BEFF' }} />
               <span className="text-[11px] font-black tracking-widest text-text-secondary">CALORIES</span>
             </div>
 
@@ -237,7 +253,7 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
                   width: `${Math.min((totals.calories / Math.max(goals.calories, 1)) * 100, 100)}%`,
                   background: caloriesRemaining < 0
                     ? 'linear-gradient(to right, var(--color-primary-light), var(--color-error))'
-                    : HEADER_G,
+                    : '#00BEFF',
                 }}
               />
             </div>

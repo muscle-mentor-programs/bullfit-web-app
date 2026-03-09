@@ -21,7 +21,7 @@ const RIGHT_TABS: NavTab[] = [
   { href: '/settings',  label: 'Profile',   icon: UserCircle2 },
 ]
 
-const BULL_G = '#00BEFF'
+const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 60%, #FF0087 100%)'
 
 function SideTab({ href, label, icon: Icon, active }: NavTab & { active: boolean }) {
   return (
@@ -32,7 +32,7 @@ function SideTab({ href, label, icon: Icon, active }: NavTab & { active: boolean
         'py-2 min-h-[56px]',
         'transition-colors duration-150',
         'focus-visible:outline-none',
-        active ? 'text-[#00BEFF]' : 'text-text-muted',
+        active ? 'text-[#00BEFF]' : 'text-white/40',
       )}
       aria-current={active ? 'page' : undefined}
       aria-label={label}
@@ -40,11 +40,11 @@ function SideTab({ href, label, icon: Icon, active }: NavTab & { active: boolean
       {/* Gradient top indicator */}
       <span
         className={cn(
-          'absolute top-0 left-1/2 -translate-x-1/2 h-0.5 rounded-b-full',
+          'absolute top-0 left-1/2 -translate-x-1/2 h-[3px] rounded-b-full',
           'transition-all duration-300 ease-[0.4,0,0.2,1]',
           active ? 'w-6 opacity-100' : 'w-0 opacity-0',
         )}
-        style={{ background: BULL_G }}
+        style={{ background: 'linear-gradient(90deg, #00BEFF, #CF00FF, #FF0087)' }}
       />
       <span className={cn('transition-transform duration-200', active ? 'scale-110' : 'scale-100')}>
         <Icon size={20} />
@@ -65,12 +65,12 @@ function BottomNav() {
     <nav
       className={cn(
         'fixed bottom-0 left-0 right-0 z-50',
-        'border-t border-border',
-        'rounded-t-3xl overflow-visible',
+        'overflow-visible',
       )}
       style={{
         paddingBottom: 'env(safe-area-inset-bottom)',
-        background: 'var(--color-surface)',
+        background: '#111111',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
       }}
       aria-label="Main navigation"
     >
@@ -108,8 +108,8 @@ function BottomNav() {
             style={{
               background: BULL_G,
               boxShadow: homeActive
-                ? '0 0 24px rgba(0,190,255,0.50), 0 0 12px rgba(207,0,255,0.30)'
-                : '0 4px 20px rgba(0,0,0,0.60)',
+                ? '0 0 24px rgba(0,190,255,0.55), 0 0 16px rgba(207,0,255,0.35), 0 0 12px rgba(255,0,135,0.25)'
+                : '0 4px 20px rgba(0,0,0,0.70)',
             }}
           >
             {/* Bull icon — stylized B */}

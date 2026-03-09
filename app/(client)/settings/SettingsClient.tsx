@@ -424,20 +424,36 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
     )
   }
 
-  const HEADER_G = '#00BEFF'
 
   // ─── Main Settings View ───────────────────────────────────────────
   return (
     <div className="flex flex-col min-h-screen bg-background animate-fade-in">
-      {/* ── BULLFIT Header ─────────────────────────────────────────── */}
-      <div className="px-4 pt-12 pb-4">
-        <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: 'var(--color-background)' }}>
-          <div className="h-1.5 w-full" style={{ background: HEADER_G }} />
-          <div className="px-5 py-5">
-            <p className="text-[10px] font-black tracking-widest text-text-muted">BULLFIT</p>
-            <h1 className="text-3xl font-black tracking-tight text-text-primary">PROFILE</h1>
-          </div>
+      {/* ── Dark BULLFIT Page Hero ─────────────────── */}
+      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <div className="hero-accent-bar" />
+        <div className="hero-glow" style={{
+          width: 200, height: 200, top: -60, right: -40,
+          background: 'radial-gradient(circle, rgba(0,190,255,0.18) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }} />
+        <div className="hero-glow" style={{
+          width: 160, height: 160, bottom: -20, left: -30,
+          background: 'radial-gradient(circle, rgba(207,0,255,0.12) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }} />
+        <div className="px-5 pt-4 pb-7 relative">
+          <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
+            color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
+            YOUR ACCOUNT
+          </p>
+          <h1 style={{ fontFamily: 'var(--font-condensed)', fontSize: 40, fontWeight: 900,
+            letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.05,
+            color: '#FFFFFF', marginTop: 4 }}>
+            SETTINGS
+          </h1>
         </div>
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 28,
+          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none' }} />
       </div>
 
       {/* Profile summary */}
@@ -452,7 +468,7 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
             <span
               className="text-2xl font-black leading-none"
               style={{
-                background: HEADER_G,
+                background: '#00BEFF',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -467,7 +483,7 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
           <p className="text-xs text-text-muted mt-0.5 truncate normal-case">{user.email}</p>
           {isSubscribed && (
             <span className="inline-block mt-1 text-[9px] font-black tracking-widest px-2 py-0.5 rounded-full text-black"
-              style={{ background: HEADER_G }}>
+              style={{ background: '#00BEFF' }}>
               BULLFIT MEMBER
             </span>
           )}

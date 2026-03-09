@@ -177,38 +177,62 @@ export function DashboardClient({
   return (
     <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
 
-      {/* ── Hero Header ─────────────────────────────────────────────── */}
-      <div className="px-4 pt-12 pb-4">
-        <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: 'var(--color-background)' }}>
-          <div className="h-1.5 w-full" style={{ background: BULL_G }} />
-          <div className="px-5 py-5 flex items-center justify-between">
-            <div>
-              <p className="text-[10px] font-black tracking-widest text-text-muted">{greeting.toUpperCase()}</p>
-              <h1 className="text-3xl font-black tracking-tight text-text-primary">{firstName.toUpperCase()}</h1>
-              <p className="text-[10px] tracking-wider text-text-muted mt-0.5">
-                {isSubscribed
-                  ? '✦ BULLFIT MEMBER'
-                  : 'START YOUR JOURNEY'}
-              </p>
-            </div>
-            {/* BULLFIT "B" logo badge */}
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center border border-white/10"
-              style={{ background: 'var(--color-surface)' }}
-            >
-              <span
-                className="text-3xl font-black leading-none"
-                style={{
-                  background: BULL_G,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  fontFamily: 'var(--font-condensed)',
-                }}
-              >B</span>
-            </div>
+      {/* ── Dark Hero Header ────────────────────────────────── */}
+      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <div className="hero-accent-bar" />
+
+        {/* Cyan glow — top right */}
+        <div className="hero-glow" style={{
+          width: 240, height: 240, top: -80, right: -60,
+          background: 'radial-gradient(circle, rgba(0,190,255,0.20) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }} />
+        {/* Pink glow — bottom left */}
+        <div className="hero-glow" style={{
+          width: 180, height: 180, bottom: 0, left: -50,
+          background: 'radial-gradient(circle, rgba(255,0,135,0.12) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }} />
+
+        <div className="px-5 pt-5 pb-9 relative">
+          {/* Eyebrow with gradient dash */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+            <div style={{
+              width: 16, height: 2, borderRadius: 1,
+              background: 'linear-gradient(90deg, #00BEFF, #CF00FF)',
+            }} />
+            <p style={{
+              fontSize: 11, fontWeight: 900, letterSpacing: '0.16em',
+              color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase',
+            }}>
+              {greeting}
+            </p>
           </div>
+
+          {/* Name — gradient text */}
+          <h1 style={{
+            fontFamily: 'var(--font-condensed)', fontSize: 52, fontWeight: 900,
+            letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.0,
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #33CBFF 55%, #CF00FF 100%)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+          }}>
+            {firstName}
+          </h1>
+
+          {/* Date */}
+          <p style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: '0.12em',
+            color: 'rgba(255,255,255,0.3)', marginTop: 6, textTransform: 'uppercase',
+          }}>
+            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase()}
+          </p>
         </div>
+
+        {/* Fade to light body */}
+        <div style={{
+          position: 'absolute', left: 0, right: 0, bottom: 0, height: 32,
+          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none',
+        }} />
       </div>
 
       <div className="flex flex-col gap-4 px-4">

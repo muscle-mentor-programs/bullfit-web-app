@@ -299,29 +299,32 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
   return (
     <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
 
-      {/* ── Header ──────────────────────────────────────────────────────── */}
-      <div className="px-4 pt-12 pb-4">
-        <div
-          className="rounded-2xl overflow-hidden shadow-xl border border-white/10"
-          style={{ background: 'var(--color-surface)' }}
-        >
-          <div className="h-1 w-full" style={{ background: BULL_G }} />
-          <div className="px-5 py-5 flex items-center justify-between">
-            <div>
-              <p className="text-[10px] font-black tracking-widest text-text-muted">BULLFIT</p>
-              <h1 className="text-3xl font-black tracking-tight text-text-primary">SHOP</h1>
-              <p className="text-xs text-text-muted normal-case mt-0.5">Pharmacist-formulated. Third-party tested.</p>
-            </div>
-            <a
-              href="https://www.bullfit.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs font-black text-[#00BEFF]"
-            >
-              Full Site <ExternalLink size={12} />
-            </a>
-          </div>
+      {/* ── Dark BULLFIT Page Hero ─────────────────── */}
+      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <div className="hero-accent-bar" />
+        <div className="hero-glow" style={{
+          width: 200, height: 200, top: -60, right: -40,
+          background: 'radial-gradient(circle, rgba(0,190,255,0.18) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }} />
+        <div className="hero-glow" style={{
+          width: 160, height: 160, bottom: -20, left: -30,
+          background: 'radial-gradient(circle, rgba(207,0,255,0.12) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }} />
+        <div className="px-5 pt-4 pb-7 relative">
+          <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
+            color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
+            PHARMACIST-FORMULATED
+          </p>
+          <h1 style={{ fontFamily: 'var(--font-condensed)', fontSize: 40, fontWeight: 900,
+            letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.05,
+            color: '#FFFFFF', marginTop: 4 }}>
+            SHOP
+          </h1>
         </div>
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 28,
+          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none' }} />
       </div>
 
       {/* ── Promo Banner ─────────────────────────────────────────────────── */}

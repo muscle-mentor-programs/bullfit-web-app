@@ -89,30 +89,61 @@ function LoginContent() {
   const canSubmit = email.trim().length > 0 && password.length > 0
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-5 py-16">
+    <div className="flex flex-col min-h-screen bg-[#111111]">
 
-      {/* BULLFIT Brand */}
-      <div className="mb-10 flex flex-col items-center gap-4">
-        <div
-          className="flex h-20 w-20 items-center justify-center rounded-2xl border border-border shadow-sm overflow-hidden"
-          style={{ background: 'var(--color-surface)' }}
-        >
-          <Image
-            src="/bull-logo.png"
-            alt="BULLFIT"
-            width={72}
-            height={72}
-            className="object-contain"
-            priority
-          />
+      {/* ── Dark Hero Splash ── */}
+      <div className="page-hero" style={{ minHeight: '42vh', paddingTop: 'env(safe-area-inset-top)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+        <div className="hero-accent-bar" />
+
+        {/* Cyan glow — center top */}
+        <div className="hero-glow" style={{
+          width: 260, height: 260, top: -80, left: '50%', transform: 'translateX(-50%)',
+          background: 'radial-gradient(circle, rgba(0,190,255,0.22) 0%, transparent 70%)',
+          filter: 'blur(40px)',
+        }} />
+        {/* Purple glow — bottom right */}
+        <div className="hero-glow" style={{
+          width: 160, height: 160, bottom: 20, right: -20,
+          background: 'radial-gradient(circle, rgba(207,0,255,0.15) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+        }} />
+
+        <div className="flex flex-col items-center pb-10 pt-16 relative">
+          {/* BF Badge */}
+          <div
+            className="flex h-[80px] w-[80px] items-center justify-center rounded-2xl mb-5"
+            style={{
+              background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)',
+              boxShadow: '0 0 30px rgba(0,190,255,0.35), 0 8px 24px rgba(0,0,0,0.5)',
+            }}
+          >
+            <span style={{ fontSize: 36, fontWeight: 900, color: '#FFFFFF', fontFamily: 'var(--font-condensed)', lineHeight: 1 }}>BF</span>
+          </div>
+
+          {/* Brand name */}
+          <h1 style={{
+            fontFamily: 'var(--font-condensed)', fontSize: 28, fontWeight: 900,
+            letterSpacing: '0.12em', textTransform: 'uppercase',
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #33CBFF 55%, #CF00FF 100%)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+          }}>BULLFIT</h1>
+
+          <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginTop: 6 }}>
+            TRAIN LIKE YOU MEAN IT
+          </p>
         </div>
-        <div className="text-center">
-          <h1 className="text-2xl font-black tracking-widest text-text-primary">BULLFIT</h1>
-          <p className="text-xs text-text-muted normal-case mt-1">Pharmacist formulated · Third-party tested</p>
-        </div>
+
+        {/* Fade to light */}
+        <div style={{
+          position: 'absolute', left: 0, right: 0, bottom: 0, height: 48,
+          background: 'linear-gradient(to bottom, transparent, #F5F5F3)', pointerEvents: 'none',
+        }} />
       </div>
 
-      {/* Error banner */}
+      {/* ── Form Section ── */}
+      <div className="flex flex-col items-center px-5 -mt-4 pb-10" style={{ background: '#F5F5F3' }}>
+
+            {/* Error banner */}
       {error && (
         <div className="mb-4 w-full max-w-sm rounded-xl border border-[#FF3060]/30 bg-[#FF3060]/10 px-4 py-3">
           <p className="text-xs font-medium text-[#FF3060] normal-case">{error}</p>
@@ -227,6 +258,7 @@ function LoginContent() {
         <Link href="/terms" className="text-text-secondary hover:text-[#00BEFF] transition-colors">TERMS</Link>{' '}AND{' '}
         <Link href="/privacy" className="text-text-secondary hover:text-[#00BEFF] transition-colors">PRIVACY POLICY</Link>.
       </p>
+      </div>
     </div>
   )
 }

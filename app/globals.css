@@ -35,6 +35,13 @@
   --color-warning:        #D97706;
   --color-error:          #DC2626;
 
+  /* Hero / dark system */
+  --color-hero-bg:      #111111;
+  --color-hero-surface: #1A1A1A;
+  --color-hero-border:  rgba(255,255,255,0.08);
+  --shadow-neon-cyan:   0 0 20px rgba(0,190,255,0.5), 0 0 40px rgba(0,190,255,0.2);
+  --shadow-neon-pink:   0 0 20px rgba(255,0,135,0.5), 0 0 40px rgba(255,0,135,0.2);
+
   /* Light shadows */
   --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.06);
   --shadow:      0 1px 4px 0 rgb(0 0 0 / 0.08), 0 1px 2px 0 rgb(0 0 0 / 0.06);
@@ -205,6 +212,28 @@ a[role="button"]:active,
 .animate-fade-in-up {
   animation: fadeInUp 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
+
+/* ── Page Hero System ─────────────────────────────────────────────────── */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background: #111111;
+  background-image: repeating-linear-gradient(
+    -45deg, transparent, transparent 40px,
+    rgba(255,255,255,0.012) 40px, rgba(255,255,255,0.012) 41px
+  );
+}
+.hero-accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%);
+}
+.hero-glow {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.shadow-neon-cyan { box-shadow: var(--shadow-neon-cyan); }
+.shadow-neon-pink  { box-shadow: var(--shadow-neon-pink); }
 
 /* ── BULLFIT Brand Gradient ───────────────────────────────────────────── */
 .bull-gradient {
