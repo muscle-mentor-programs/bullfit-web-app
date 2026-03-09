@@ -288,9 +288,18 @@ function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
 // ─── Main ShopClient ──────────────────────────────────────────────────────────
 
 type ShopTab = 'supplements' | 'suppscriptions' | 'apparel'
+const SHOP_TAB_ORDER: ShopTab[] = ['supplements', 'suppscriptions', 'apparel']
 
 export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) {
   const [activeTab, setActiveTab] = useState<ShopTab>('supplements')
+  const [slideClass, setSlideClass] = useState('')
+
+  function switchTab(newTab: ShopTab) {
+    if (newTab === activeTab) return
+    const dir = SHOP_TAB_ORDER.indexOf(newTab) > SHOP_TAB_ORDER.indexOf(activeTab) ? 'right' : 'left'
+    setSlideClass(dir === 'right' ? 'tab-slide-from-right' : 'tab-slide-from-left')
+    setActiveTab(newTab)
+  }
 
   const TABS: { id: ShopTab; label: string; icon: React.ElementType }[] = [
     { id: 'supplements',   label: 'Supps',      icon: Zap },
@@ -352,7 +361,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
-              onClick={() => setActiveTab(id)}
+              onClick={() => switchTab(id)}
               className={cn(
                 'flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl',
                 'text-[10px] font-black tracking-widest transition-all duration-200',
@@ -368,7 +377,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
       </div>
 
       {/* ── Content ──────────────────────────────────────────────────────── */}
-      <div className="flex flex-col gap-4 px-4">
+      <div key={activeTab} className={cn('flex flex-col gap-4 px-4', slideClass)}>
 
         {activeTab === 'supplements' && (
           <>

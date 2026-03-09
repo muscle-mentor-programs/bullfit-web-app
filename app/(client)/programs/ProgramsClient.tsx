@@ -236,6 +236,7 @@ function ProgramCard({
 // ─── Main ProgramsClient ──────────────────────────────────────────────────────
 
 type PTab = 'influencer' | 'bullfit'
+const PTAB_ORDER: PTab[] = ['influencer', 'bullfit']
 
 export function ProgramsClient({
   isSubscribed,
@@ -245,6 +246,14 @@ export function ProgramsClient({
   activeProgramId: string | null
 }) {
   const [tab, setTab] = useState<PTab>('influencer')
+  const [slideClass, setSlideClass] = useState('')
+
+  function switchTab(newTab: PTab) {
+    if (newTab === tab) return
+    const dir = PTAB_ORDER.indexOf(newTab) > PTAB_ORDER.indexOf(tab) ? 'right' : 'left'
+    setSlideClass(dir === 'right' ? 'tab-slide-from-right' : 'tab-slide-from-left')
+    setTab(newTab)
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
@@ -335,7 +344,7 @@ export function ProgramsClient({
       <div className="px-4 mb-4">
         <div className="flex gap-1 p-1 rounded-2xl" style={{ background: 'var(--color-surface)' }}>
           <button
-            onClick={() => setTab('influencer')}
+            onClick={() => switchTab('influencer')}
             className={cn(
               'flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl',
               'text-[10px] font-black tracking-widest transition-all duration-200',
@@ -347,7 +356,7 @@ export function ProgramsClient({
             INFLUENCER
           </button>
           <button
-            onClick={() => setTab('bullfit')}
+            onClick={() => switchTab('bullfit')}
             className={cn(
               'flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl',
               'text-[10px] font-black tracking-widest transition-all duration-200',
@@ -362,7 +371,7 @@ export function ProgramsClient({
       </div>
 
       {/* ── Program cards ────────────────────────────────────────────── */}
-      <div className="flex flex-col gap-4 px-4">
+      <div key={tab} className={cn('flex flex-col gap-4 px-4', slideClass)}>
         {tab === 'influencer' ? (
           <>
             <p className="text-[10px] font-black tracking-widest text-text-muted text-center">
