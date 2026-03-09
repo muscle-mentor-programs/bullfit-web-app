@@ -13,7 +13,7 @@ export default function AppleIcon() {
     (
       <div
         style={{
-          background: '#FFFFFF',
+          background: 'radial-gradient(ellipse at 50% 38%, #FFFFFF 0%, #D4D4D4 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -25,11 +25,11 @@ export default function AppleIcon() {
         <img
           src={logoSrc}
           style={{
-            width: '165%',
-            height: '165%',
+            width: '148%',
+            height: '148%',
             objectFit: 'contain',
             objectPosition: 'center center',
-            marginTop: '-20%',
+            marginTop: '-18%',
           }}
         />
       </div>
