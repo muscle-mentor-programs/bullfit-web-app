@@ -6,7 +6,7 @@ export const size = { width: 180, height: 180 }
 export const contentType = 'image/png'
 
 export default function AppleIcon() {
-  const logoData = readFileSync(join(process.cwd(), 'public/bull-logo.png'))
+  const logoData = readFileSync(join(process.cwd(), 'public/bull-icon-square.png'))
   const logoSrc = `data:image/png;base64,${logoData.toString('base64')}`
 
   return new ImageResponse(
@@ -19,17 +19,14 @@ export default function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          overflow: 'hidden',
         }}
       >
         <img
           src={logoSrc}
           style={{
-            width: '148%',
-            height: '148%',
+            width: '82%',
+            height: '82%',
             objectFit: 'contain',
-            objectPosition: 'center center',
-            marginTop: '-18%',
           }}
         />
       </div>
