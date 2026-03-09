@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import type { Exercise } from '@/types'
@@ -33,7 +33,7 @@ function Chip({
           ? 'text-white border-primary shadow-sm'
           : 'border-border text-text-secondary hover:border-primary hover:text-primary',
       )}
-      style={selected ? { background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' } : {}}
+      style={selected ? { background: '#00BEFF' } : {}}
     >
       {label}
     </button>
@@ -147,7 +147,7 @@ export default function AdminExercisesPage() {
       {/* Header */}
       <div
         className="rounded-2xl overflow-hidden border border-primary/20 shadow-md relative"
-        style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+        style={{ background: '#00BEFF' }}
       >
         <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%)' }} />
         <div className="flex items-center justify-between px-6 py-5 relative">
@@ -279,7 +279,7 @@ export default function AdminExercisesPage() {
               onClick={handleCreate}
               disabled={saving}
               className="flex-1 h-10 rounded-xl text-white text-sm font-black tracking-wide shadow-primary hover:shadow-md active:scale-[0.98] disabled:opacity-50 transition-all flex items-center justify-center gap-2"
-              style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+              style={{ background: '#00BEFF' }}
             >
               {saving && <Loader2 size={14} className="animate-spin" />}
               {saving ? 'Creating...' : 'Create Exercise'}
@@ -305,7 +305,7 @@ export default function AdminExercisesPage() {
         <div className="rounded-2xl border border-border overflow-hidden divide-y divide-border shadow-md" style={{ background: 'linear-gradient(to bottom right, var(--color-surface), var(--color-surface-3, var(--color-surface)))' }}>
           {exercises.map((ex) => (
             <div key={ex.id} className="flex items-start gap-4 p-4 hover:bg-surface-2 transition-colors">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm" style={{ background: '#00BEFF' }}>
                 <Dumbbell size={18} className="text-white" />
               </div>
               <div className="flex-1 min-w-0">

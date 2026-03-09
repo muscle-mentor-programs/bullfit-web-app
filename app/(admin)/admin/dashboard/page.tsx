@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+﻿import { createClient } from '@/lib/supabase/server'
 import { cn } from '@/lib/utils/cn'
 import type { UserProgram, UserSession } from '@/types'
 import {
@@ -92,8 +92,8 @@ export default async function AdminDashboardPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Page Header */}
-      <div className="rounded-2xl overflow-hidden border border-white/10 shadow-md relative" style={{ background: '#0A0A0A' }}>
-        <div className="h-1.5 w-full" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }} />
+      <div className="rounded-2xl overflow-hidden border border-white/10 shadow-md relative" style={{ background: 'var(--color-background)' }}>
+        <div className="h-1.5 w-full" style={{ background: '#00BEFF' }} />
         <div className="px-6 py-5 flex items-center justify-between">
           <div>
             <p className="text-[10px] font-black tracking-widest text-text-muted">BULLFIT ADMIN</p>
@@ -101,7 +101,7 @@ export default async function AdminDashboardPage() {
           </div>
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+            style={{ background: '#00BEFF' }}
           >
             <span className="text-black font-black text-lg leading-none">B</span>
           </div>
@@ -114,7 +114,7 @@ export default async function AdminDashboardPage() {
           label="Total Clients"
           value={totalClients ?? 0}
           icon={Users}
-          gradient="linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)"
+          gradient='#00BEFF'
           shadowColor="var(--shadow-primary)"
         />
         <StatCard
@@ -145,7 +145,7 @@ export default async function AdminDashboardPage() {
         <div className="rounded-2xl border border-border overflow-hidden shadow-md" style={{ background: 'linear-gradient(to bottom right, var(--color-surface), var(--color-surface-3, var(--color-surface)))' }}>
           <div className="flex items-center justify-between px-5 py-4 border-b border-border">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}>
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: '#00BEFF' }}>
                 <ShoppingBag size={13} className="text-white" />
               </div>
               <h2 className="text-sm font-black text-text-primary">Recent Purchases</h2>
@@ -169,7 +169,7 @@ export default async function AdminDashboardPage() {
                       {user?.avatar_url ? (
                         <img src={user.avatar_url} alt={user.name} className="w-8 h-8 rounded-full object-cover flex-shrink-0 shadow-sm" />
                       ) : (
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}>
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm" style={{ background: '#00BEFF' }}>
                           <span className="text-xs font-black text-white">{user?.name?.charAt(0) ?? '?'}</span>
                         </div>
                       )}
@@ -267,7 +267,7 @@ export default async function AdminDashboardPage() {
             'inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl text-sm font-black',
             'text-white shadow-primary transition-all hover:shadow-md active:scale-[0.98]',
           )}
-          style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+          style={{ background: '#00BEFF' }}
         >
           <Plus size={15} />
           Create Program

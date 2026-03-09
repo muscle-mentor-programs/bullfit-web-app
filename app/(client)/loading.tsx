@@ -1,4 +1,4 @@
-// Page skeleton shown while server-component data is fetching.
+﻿// Page skeleton shown while server-component data is fetching.
 // Matches the gradient-header + rounded-card layout used by all tab pages
 // so there is no jarring jump when the real content replaces this skeleton.
 export default function ClientLoading() {
@@ -9,7 +9,7 @@ export default function ClientLoading() {
         <div
           className="rounded-2xl h-[82px] opacity-80 animate-pulse"
           style={{
-            background: '#141414',
+            background: 'var(--color-surface)',
             borderTop: '2px solid transparent',
             backgroundClip: 'padding-box',
           }}

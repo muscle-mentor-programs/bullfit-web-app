@@ -1,11 +1,11 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import { Lock, Play, CheckCircle2, Users, Star, ChevronRight, Zap, Trophy, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
-const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const BULL_G = '#00BEFF'
 const GOLD_G = 'linear-gradient(135deg, #FFC00E 0%, #FFD600 100%)'
 
 // ─── Program Data ─────────────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ const INFLUENCER_PROGRAMS = [
     category: 'Hypertrophy',
     rating: 4.9,
     reviews: 1247,
-    gradient: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 100%)',
+    gradient: '#00BEFF',
     badge: 'MOST POPULAR',
     badgeColor: '#FF0087',
     highlights: ['Progressive overload protocol', 'Advanced intensity techniques', 'Deload weeks included', 'Meal plan guidelines'],
@@ -48,7 +48,7 @@ const INFLUENCER_PROGRAMS = [
     category: 'Strength + Fat Loss',
     rating: 4.8,
     reviews: 876,
-    gradient: 'linear-gradient(135deg, #CF00FF 0%, #FF0087 100%)',
+    gradient: '#00BEFF',
     badge: null,
     badgeColor: '#CF00FF',
     highlights: ['Powerlifting foundation', 'HIIT finishers', 'Macro tracking templates', 'Progress benchmarks'],
@@ -69,7 +69,7 @@ const INFLUENCER_PROGRAMS = [
     category: 'Athletic Performance',
     rating: 4.7,
     reviews: 502,
-    gradient: 'linear-gradient(135deg, #FF0087 0%, #FFD600 100%)',
+    gradient: '#00BEFF',
     badge: null,
     badgeColor: '#FF0087',
     highlights: ['Sport-specific movements', 'Explosive power training', 'Mobility & flexibility work', 'Recovery protocols'],
@@ -90,7 +90,7 @@ const BULLFIT_PROGRAMS = [
     category: 'Foundation',
     rating: 4.8,
     reviews: 2104,
-    gradient: 'linear-gradient(135deg, #22C55E 0%, #00BEFF 100%)',
+    gradient: '#00BEFF',
     badge: 'START HERE',
     badgeColor: '#22C55E',
     highlights: ['Form & technique focus', 'Full-body workouts', 'Nutrition basics guide', 'App integration'],
@@ -108,7 +108,7 @@ const BULLFIT_PROGRAMS = [
     category: 'Fat Loss',
     rating: 4.6,
     reviews: 689,
-    gradient: 'linear-gradient(135deg, #FF0087 0%, #FFC00E 100%)',
+    gradient: '#00BEFF',
     badge: null,
     badgeColor: '#FF0087',
     highlights: ['HIIT + LISS cardio plan', 'Circuit training protocols', 'Supplement stack guide', 'Weekly check-ins'],
@@ -129,7 +129,7 @@ function ProgramCard({
   return (
     <div
       className="rounded-2xl border border-border overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #141414, #1A1A1A)' }}
+      style={{ background: 'var(--color-surface)' }}
     >
       {/* Gradient accent bar */}
       <div className="h-1.5 w-full" style={{ background: program.gradient }} />
@@ -253,7 +253,7 @@ export function ProgramsClient({
       <div className="px-4 pt-12 pb-4">
         <div
           className="rounded-2xl overflow-hidden shadow-xl border border-white/10"
-          style={{ background: '#0A0A0A' }}
+          style={{ background: 'var(--color-background)' }}
         >
           <div className="h-1 w-full" style={{ background: BULL_G }} />
           <div className="px-5 py-5 flex items-center justify-between">
@@ -325,7 +325,7 @@ export function ProgramsClient({
 
       {/* ── Tab switcher ─────────────────────────────────────────────── */}
       <div className="px-4 mb-4">
-        <div className="flex gap-1 p-1 rounded-2xl" style={{ background: '#141414' }}>
+        <div className="flex gap-1 p-1 rounded-2xl" style={{ background: 'var(--color-surface)' }}>
           <button
             onClick={() => setTab('influencer')}
             className={cn(
@@ -380,7 +380,7 @@ export function ProgramsClient({
           <Link
             href="/sessions"
             className="flex items-center justify-between p-4 rounded-2xl border border-border"
-            style={{ background: '#141414' }}
+            style={{ background: 'var(--color-surface)' }}
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-border flex items-center justify-center">

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
@@ -19,7 +19,7 @@ interface DashboardClientProps {
   latestWeight: number | null
 }
 
-const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const BULL_G = '#00BEFF'
 const GOLD_G = 'linear-gradient(135deg, #FFC00E 0%, #FFD600 100%)'
 
 function getGreeting(hour: number): string {
@@ -62,7 +62,7 @@ function WeightWidget({ initialWeight }: { initialWeight: number | null }) {
   return (
     <div
       className="rounded-2xl border border-border shadow-md p-5"
-      style={{ background: 'linear-gradient(160deg, #141414, #1D1D1D)' }}
+      style={{ background: 'var(--color-surface)' }}
     >
       <div className="flex items-center gap-2 mb-3">
         <div className="h-0.5 w-3 rounded-full" style={{ background: GOLD_G }} />
@@ -120,7 +120,7 @@ function FeaturedProductBanner() {
     <Link
       href="/shop"
       className="block rounded-2xl overflow-hidden border border-white/10"
-      style={{ background: 'linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%)' }}
+      style={{ background: 'var(--color-surface)' }}
     >
       <div className="h-0.5 w-full" style={{ background: BULL_G }} />
       <div className="p-4 flex items-center justify-between">
@@ -179,7 +179,7 @@ export function DashboardClient({
 
       {/* ── Hero Header ─────────────────────────────────────────────── */}
       <div className="px-4 pt-12 pb-4">
-        <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: '#0A0A0A' }}>
+        <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: 'var(--color-background)' }}>
           <div className="h-1.5 w-full" style={{ background: BULL_G }} />
           <div className="px-5 py-5 flex items-center justify-between">
             <div>
@@ -194,7 +194,7 @@ export function DashboardClient({
             {/* BULLFIT "B" logo badge */}
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center border border-white/10"
-              style={{ background: 'linear-gradient(135deg, #1A1A1A, #0A0A0A)' }}
+              style={{ background: 'var(--color-surface)' }}
             >
               <span
                 className="text-3xl font-black leading-none"
@@ -251,7 +251,7 @@ export function DashboardClient({
             className="rounded-2xl overflow-hidden border border-white/10"
             style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(0,190,255,0.05))' }}
           >
-            <div className="h-1 w-full" style={{ background: 'linear-gradient(to right, #22C55E, #00BEFF)' }} />
+            <div className="h-1 w-full" style={{ background: 'var(--color-surface)' }} />
             <div className="p-5">
               <div className="flex items-center gap-2 mb-1">
                 <CheckCircle2 size={14} className="text-[#22C55E]" />
@@ -285,7 +285,7 @@ export function DashboardClient({
           <section
             aria-label="Today's training"
             className="rounded-2xl overflow-hidden border border-white/10"
-            style={{ background: '#141414' }}
+            style={{ background: 'var(--color-surface)' }}
           >
             <div className="h-1.5 w-full" style={{ background: BULL_G }} />
             <div className="p-5">
@@ -314,7 +314,7 @@ export function DashboardClient({
           <section
             aria-label="Rest day"
             className="rounded-2xl border border-border p-5"
-            style={{ background: '#141414' }}
+            style={{ background: 'var(--color-surface)' }}
           >
             <div className="h-0.5 w-full mb-4 rounded-full" style={{ background: 'linear-gradient(to right, #282828, transparent)' }} />
             <span className="text-[11px] font-black tracking-widest text-text-muted">TODAY'S WORKOUT</span>
@@ -332,7 +332,7 @@ export function DashboardClient({
           <Link
             href="/programs"
             className="block rounded-2xl overflow-hidden border border-border"
-            style={{ background: '#141414' }}
+            style={{ background: 'var(--color-surface)' }}
           >
             <div className="h-0.5 w-full" style={{ background: GOLD_G }} />
             <div className="p-5 flex items-center justify-between">
@@ -353,10 +353,10 @@ export function DashboardClient({
         <section aria-label="Today's nutrition">
           <div
             className="rounded-2xl border border-border shadow-md p-5"
-            style={{ background: '#141414' }}
+            style={{ background: 'var(--color-surface)' }}
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="h-0.5 w-3 rounded-full" style={{ background: 'linear-gradient(to right, #00BEFF, #CF00FF)' }} />
+              <div className="h-0.5 w-3 rounded-full" style={{ background: '#00BEFF' }} />
               <span className="text-[11px] font-black tracking-widest text-text-secondary">TODAY'S NUTRITION</span>
             </div>
             <MacroRing

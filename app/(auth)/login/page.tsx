@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useState } from 'react'
 
-const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const BULL_G = '#00BEFF'
 
 function GoogleIcon() {
   return (
@@ -94,7 +94,7 @@ function LoginContent() {
       <div className="mb-10 flex flex-col items-center gap-4">
         <div
           className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10"
-          style={{ background: 'radial-gradient(circle at 30% 30%, #1A1A1A, #000000)' }}
+          style={{ background: 'var(--color-surface)' }}
         >
           <span
             className="font-black text-4xl leading-none"

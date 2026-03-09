@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { createClient } from '@/lib/supabase/client'
@@ -25,7 +25,7 @@ export default function AdminSettingsPage() {
       {/* Header */}
       <div
         className="rounded-2xl overflow-hidden border border-primary/20 shadow-md relative"
-        style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+        style={{ background: '#00BEFF' }}
       >
         <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%)' }} />
         <div className="px-6 py-5 relative">
@@ -36,16 +36,16 @@ export default function AdminSettingsPage() {
 
       {/* Admin Account Card */}
       <div className="rounded-2xl border border-border overflow-hidden shadow-md" style={{ background: 'linear-gradient(to bottom right, var(--color-surface), var(--color-surface-3, var(--color-surface)))' }}>
-        <div className="h-0.5 w-full" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }} />
+        <div className="h-0.5 w-full" style={{ background: '#00BEFF' }} />
         <div className="flex items-center gap-2 px-5 py-4 border-b border-border">
-          <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}>
+          <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: '#00BEFF' }}>
             <Shield size={12} className="text-white" />
           </div>
           <h2 className="text-sm font-black tracking-wider text-text-primary">ACCOUNT</h2>
         </div>
         <div className="p-5">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl shadow-sm" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl shadow-sm" style={{ background: '#00BEFF' }}>
               <Shield size={20} className="text-white" />
             </div>
             <div>

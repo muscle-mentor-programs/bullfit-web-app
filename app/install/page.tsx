@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import { Download, ScanBarcode, Salad, Share, Plus, Trophy } from 'lucide-react'
@@ -12,7 +12,7 @@ interface BeforeInstallPromptEvent extends Event {
 
 type Platform = 'ios' | 'android' | 'desktop' | 'unknown'
 
-const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const BULL_G = '#00BEFF'
 
 const FEATURES = [
   {
@@ -36,7 +36,7 @@ function IOSInstructions() {
   return (
     <div
       className="rounded-2xl border border-border overflow-hidden shadow-md"
-      style={{ background: 'linear-gradient(160deg, #141414, #1A1A1A)' }}
+      style={{ background: 'var(--color-surface)' }}
     >
       <div className="h-0.5 w-full" style={{ background: BULL_G }} />
       <div className="p-5">
@@ -136,7 +136,7 @@ export default function InstallPage() {
     <main className="flex flex-col min-h-screen bg-background">
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden" style={{ background: '#0A0A0A' }}>
+      <div className="relative overflow-hidden" style={{ background: 'var(--color-background)' }}>
         <div className="h-1.5 w-full" style={{ background: BULL_G }} />
         <div className="absolute -right-10 -top-10 w-48 h-48 rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(circle, rgba(0,190,255,0.15), transparent 70%)' }} />
@@ -174,7 +174,7 @@ export default function InstallPage() {
           <div
             key={f.label}
             className="flex items-center gap-4 rounded-2xl border border-border p-4"
-            style={{ background: 'linear-gradient(160deg, #141414, #1A1A1A)' }}
+            style={{ background: 'var(--color-surface)' }}
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -217,7 +217,7 @@ export default function InstallPage() {
         ) : platform !== 'unknown' ? (
           <div
             className="rounded-2xl border border-border p-5 text-center"
-            style={{ background: '#141414' }}
+            style={{ background: 'var(--color-surface)' }}
           >
             <p className="text-sm text-text-muted leading-relaxed">
               To install, open this page in <strong className="text-text-primary">Chrome</strong> on Android
@@ -230,7 +230,7 @@ export default function InstallPage() {
         <Link
           href="/dashboard"
           className="flex items-center justify-center h-11 w-full rounded-2xl border border-border text-sm font-black text-text-muted hover:text-text-primary transition-colors"
-          style={{ background: '#141414' }}
+          style={{ background: 'var(--color-surface)' }}
         >
           OPEN IN BROWSER INSTEAD
         </Link>

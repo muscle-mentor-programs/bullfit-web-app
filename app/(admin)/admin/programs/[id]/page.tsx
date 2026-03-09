@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { Modal } from '@/components/ui/Modal'
@@ -86,7 +86,7 @@ const TYPE_PILL: Record<ExerciseType, string> = {
   Warmup:    'bg-warning/10 text-warning border border-warning/20',
 }
 
-const HEADER_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const HEADER_G = '#00BEFF'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

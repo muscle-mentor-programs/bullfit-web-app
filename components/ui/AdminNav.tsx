@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import {
@@ -53,7 +53,7 @@ function SidebarNavItem({ link, isActive }: { link: NavLink; isActive: boolean }
   )
 }
 
-const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const BULL_G = '#00BEFF'
 
 // ── Brand ─────────────────────────────────────────────────────────────────────
 function Brand() {

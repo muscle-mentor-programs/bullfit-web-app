@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import { ArrowDownUp, ChevronRight, Star, User } from 'lucide-react'
@@ -72,7 +72,7 @@ export function UsersClient({ users }: { users: UserRow[] }) {
                 {/* Avatar */}
                 <div
                   className="w-10 h-10 rounded-xl border border-border flex items-center justify-center flex-shrink-0 overflow-hidden shadow-sm"
-                  style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+                  style={{ background: '#00BEFF' }}
                 >
                   {u.avatar_url ? (
                     <img src={u.avatar_url} alt={u.name ?? u.email} className="w-full h-full object-cover" />

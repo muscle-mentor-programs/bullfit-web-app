@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import { format, parseISO } from 'date-fns'
@@ -35,7 +35,7 @@ interface Props {
   stats: Stats
 }
 
-const HEADER_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const HEADER_G = '#00BEFF'
 
 function isActiveSubscriber(sub: Subscription | null): boolean {
   if (!sub) return false
@@ -262,7 +262,7 @@ export function UserDetailClient({ user, subscription, stats }: Props) {
                 'text-white text-sm font-black tracking-widest',
                 'transition-all disabled:opacity-60',
               )}
-              style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+              style={{ background: '#00BEFF' }}
             >
               {granting ? (
                 <>

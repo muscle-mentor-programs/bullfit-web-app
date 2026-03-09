@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import type { FoodCorrection } from '@/types'
@@ -164,7 +164,7 @@ function AddFoodPanel() {
         className="rounded-2xl border border-border overflow-hidden shadow-sm"
         style={{ background: 'linear-gradient(to bottom right, var(--color-surface), var(--color-surface-3, var(--color-surface)))' }}
       >
-        <div className="h-0.5 w-full" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }} />
+        <div className="h-0.5 w-full" style={{ background: '#00BEFF' }} />
 
         {/* Toggle header */}
         <button
@@ -175,7 +175,7 @@ function AddFoodPanel() {
           <div className="flex items-center gap-2">
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+              style={{ background: '#00BEFF' }}
             >
               <Plus size={14} className="text-white" />
             </div>
@@ -221,7 +221,7 @@ function AddFoodPanel() {
                   'h-10 px-3 rounded-xl text-xs font-black text-white border border-transparent',
                   'transition-all active:scale-[0.97] disabled:opacity-40',
                 )}
-                style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+                style={{ background: '#00BEFF' }}
               >
                 {looking ? <Loader2 size={14} className="animate-spin" /> : 'LOOK UP'}
               </button>
@@ -373,7 +373,7 @@ function AddFoodPanel() {
                       'flex items-center justify-center gap-1.5',
                       'transition-all active:scale-[0.97] disabled:opacity-40',
                     )}
-                    style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+                    style={{ background: '#00BEFF' }}
                   >
                     {saving ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
                     {saving ? 'Saving…' : 'SAVE AS VERIFIED'}
@@ -441,7 +441,7 @@ function CorrectionCard({
       className="rounded-2xl border border-border overflow-hidden shadow-sm"
       style={{ background: 'linear-gradient(to bottom right, var(--color-surface), var(--color-surface-3, var(--color-surface)))' }}
     >
-      <div className="h-0.5 w-full" style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }} />
+      <div className="h-0.5 w-full" style={{ background: '#00BEFF' }} />
 
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
@@ -486,7 +486,7 @@ function CorrectionCard({
               'flex items-center justify-center gap-1.5',
               'active:scale-[0.97] transition-all disabled:opacity-50',
             )}
-            style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+            style={{ background: '#00BEFF' }}
           >
             {acting === 'approve' ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
             Approve & Verify
@@ -558,7 +558,7 @@ export default function FoodCorrectionsPage() {
       {/* ── Header ── */}
       <header
         className="rounded-2xl overflow-hidden border border-primary/20 shadow-lg relative"
-        style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+        style={{ background: '#00BEFF' }}
       >
         <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%)' }} />
@@ -588,7 +588,7 @@ export default function FoodCorrectionsPage() {
               'flex-1 h-9 rounded-lg text-xs font-black tracking-wide transition-all',
               activeTab === value ? 'text-white shadow-sm' : 'text-text-muted hover:text-text-primary',
             )}
-            style={activeTab === value ? { background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' } : {}}
+            style={activeTab === value ? { background: '#00BEFF' } : {}}
           >
             {label}
           </button>

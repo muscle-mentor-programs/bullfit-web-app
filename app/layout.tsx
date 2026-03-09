@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@/lib/context/ThemeContext'
+﻿import { ThemeProvider } from '@/lib/context/ThemeContext'
 import type { Metadata, Viewport } from 'next'
 import { Barlow, Barlow_Condensed } from 'next/font/google'
 import './globals.css'
@@ -31,7 +31,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#0A0A0A',
+  themeColor: '#F5F5F3',
   viewportFit: 'cover',
 }
 

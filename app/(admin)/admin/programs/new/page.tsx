@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { Modal } from '@/components/ui/Modal'
 import { cn } from '@/lib/utils/cn'
@@ -53,7 +53,7 @@ const TYPE_PILL: Record<ExerciseType, string> = {
   Cardio: 'bg-success/15 text-success border border-success/25',
   Warmup: 'bg-warning/10 text-warning border border-warning/20',
 }
-const HEADER_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const HEADER_G = '#00BEFF'
 const PICKER_MUSCLE_GROUPS = ['Chest', 'Back', 'Shoulders', 'Biceps', 'Triceps', 'Quads', 'Hamstrings', 'Glutes', 'Calves', 'Core', 'Full Body']
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

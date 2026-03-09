@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
@@ -283,7 +283,7 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
             onClick={saveName}
             disabled={saving}
             className="flex items-center gap-2 h-11 w-full justify-center rounded-xl text-white text-sm font-black tracking-widest shadow-primary hover:shadow-md active:scale-[0.98] disabled:opacity-50 transition-all"
-            style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+            style={{ background: '#00BEFF' }}
           >
             <Save size={15} />
             {saving ? 'Saving...' : 'Save Changes'}
@@ -394,7 +394,7 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
             onClick={saveWeight}
             disabled={saving || !weightLbs}
             className="flex items-center gap-2 h-11 w-full justify-center rounded-xl text-white text-sm font-black tracking-widest shadow-primary hover:shadow-md active:scale-[0.98] disabled:opacity-50 transition-all"
-            style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+            style={{ background: '#00BEFF' }}
           >
             <Save size={15} />
             {saving ? 'Saving...' : 'Log Weight'}
@@ -424,14 +424,14 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
     )
   }
 
-  const HEADER_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+  const HEADER_G = '#00BEFF'
 
   // ─── Main Settings View ───────────────────────────────────────────
   return (
     <div className="flex flex-col min-h-screen bg-background animate-fade-in">
       {/* ── BULLFIT Header ─────────────────────────────────────────── */}
       <div className="px-4 pt-12 pb-4">
-        <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: '#0A0A0A' }}>
+        <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: 'var(--color-background)' }}>
           <div className="h-1.5 w-full" style={{ background: HEADER_G }} />
           <div className="px-5 py-5">
             <p className="text-[10px] font-black tracking-widest text-text-muted">BULLFIT</p>
@@ -441,10 +441,10 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
       </div>
 
       {/* Profile summary */}
-      <div className="mx-4 mb-4 rounded-2xl border border-border p-4 flex items-center gap-4 shadow-md" style={{ background: '#141414' }}>
+      <div className="mx-4 mb-4 rounded-2xl border border-border p-4 flex items-center gap-4 shadow-md" style={{ background: 'var(--color-surface)' }}>
         <div
           className="w-14 h-14 rounded-2xl border border-border flex items-center justify-center flex-shrink-0 overflow-hidden"
-          style={{ background: 'linear-gradient(135deg, #1A1A1A, #0A0A0A)' }}
+          style={{ background: 'var(--color-surface)' }}
         >
           {user.avatar_url ? (
             <img src={user.avatar_url} alt={user.name} className="w-full h-full object-cover" />
@@ -509,7 +509,7 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
             <div className="flex w-full items-center gap-4 px-4 py-4 bg-background border-b border-border">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm"
-                style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+                style={{ background: '#00BEFF' }}
               >
                 <CreditCard size={17} className="text-white" />
               </div>
@@ -560,7 +560,7 @@ export function SettingsClient({ user, goals, weightHistory, subscription, isAdm
             >
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm"
-                style={{ background: 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)' }}
+                style={{ background: '#00BEFF' }}
               >
                 <ShieldCheck size={17} className="text-white" />
               </div>

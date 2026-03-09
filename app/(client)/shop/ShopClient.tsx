@@ -1,11 +1,11 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import { ExternalLink, ShoppingCart, Star, Zap, Tag, Package } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
-const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const BULL_G = '#00BEFF'
 const GOLD_G = 'linear-gradient(135deg, #FFC00E 0%, #FFD600 100%)'
 
 // ─── Product Data (bullfit.com placeholders) ────────────────────────────────
@@ -115,7 +115,7 @@ function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
       target="_blank"
       rel="noopener noreferrer"
       className="block rounded-2xl border border-border overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #141414, #1D1D1D)' }}
+      style={{ background: 'var(--color-surface)' }}
     >
       {/* Color accent top bar */}
       <div className="h-1 w-full" style={{ backgroundColor: product.accentColor }} />
@@ -179,7 +179,7 @@ function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
     <div
       className="rounded-2xl border overflow-hidden"
       style={{
-        background: 'linear-gradient(160deg, #141414, #1D1D1D)',
+        background: 'var(--color-surface)',
         borderColor: '#CF00FF44',
       }}
     >
@@ -244,7 +244,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
       <div className="px-4 pt-12 pb-4">
         <div
           className="rounded-2xl overflow-hidden shadow-xl border border-white/10"
-          style={{ background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)' }}
+          style={{ background: 'var(--color-surface)' }}
         >
           <div className="h-1 w-full" style={{ background: BULL_G }} />
           <div className="px-5 py-5 flex items-center justify-between">
@@ -286,7 +286,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
 
       {/* ── Tab Switcher ─────────────────────────────────────────────────── */}
       <div className="px-4 mb-4">
-        <div className="flex gap-1 p-1 rounded-2xl" style={{ background: '#141414' }}>
+        <div className="flex gap-1 p-1 rounded-2xl" style={{ background: 'var(--color-surface)' }}>
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -339,7 +339,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
             ))}
             <div
               className="rounded-2xl p-4 border border-[#FFD60033] text-center"
-              style={{ background: 'linear-gradient(160deg, #141414, #1D1D1D)' }}
+              style={{ background: 'var(--color-surface)' }}
             >
               <p className="text-xs font-black tracking-widest text-[#FFD600] mb-1">SUPPSCRIPTION PERKS</p>
               <p className="text-[10px] text-text-muted normal-case mb-3">All SuppScription plans unlock the barcode scanner in the Nutrition tab</p>
@@ -366,7 +366,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-2xl border border-border p-4"
-                  style={{ background: 'linear-gradient(160deg, #141414, #1D1D1D)' }}
+                  style={{ background: 'var(--color-surface)' }}
                 >
                   <span className="text-[9px] font-black tracking-widest text-text-muted">{item.category.toUpperCase()}</span>
                   <h4 className="text-sm font-black text-text-primary mt-1 mb-2 leading-tight">{item.name.toUpperCase()}</h4>

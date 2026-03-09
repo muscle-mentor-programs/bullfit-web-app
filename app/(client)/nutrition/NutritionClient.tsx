@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { FoodSearchModal } from '@/components/ui/FoodSearchModal'
 import { useNutritionLog } from '@/hooks/useNutritionLog'
@@ -54,7 +54,7 @@ function MacroTile({ label, value, goal, color }: { label: string; value: number
   )
 }
 
-const HEADER_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const HEADER_G = '#00BEFF'
 
 export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: GoalShape; isAdmin?: boolean; hasSuppScription?: boolean }) {
   const [viewDate, setViewDate] = useState(new Date())
@@ -152,7 +152,7 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
       <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
         {/* ── Gradient Header Card ─────────────────────────────────── */}
         <div className="px-4 pt-12 pb-4">
-          <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: '#0A0A0A' }}>
+          <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10" style={{ background: 'var(--color-background)' }}>
             <div className="h-1.5 w-full" style={{ background: HEADER_G }} />
             <div className="px-5 py-5 flex items-center justify-between">
               <div>

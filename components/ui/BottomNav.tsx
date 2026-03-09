@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils/cn'
 import { Home, ShoppingBag, UtensilsCrossed, Trophy, UserCircle2 } from 'lucide-react'
@@ -21,7 +21,7 @@ const RIGHT_TABS: NavTab[] = [
   { href: '/settings',  label: 'Profile',   icon: UserCircle2 },
 ]
 
-const BULL_G = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const BULL_G = '#00BEFF'
 
 function SideTab({ href, label, icon: Icon, active }: NavTab & { active: boolean }) {
   return (
@@ -70,7 +70,7 @@ function BottomNav() {
       )}
       style={{
         paddingBottom: 'env(safe-area-inset-bottom)',
-        background: 'linear-gradient(to top, #0A0A0A, #141414)',
+        background: 'var(--color-surface)',
       }}
       aria-label="Main navigation"
     >
