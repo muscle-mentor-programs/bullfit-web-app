@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
 import { Eye, EyeOff, Loader2, Mail, Share } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useState } from 'react'
@@ -93,18 +94,17 @@ function LoginContent() {
       {/* BULLFIT Brand */}
       <div className="mb-10 flex flex-col items-center gap-4">
         <div
-          className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10"
+          className="flex h-20 w-20 items-center justify-center rounded-2xl border border-border shadow-sm overflow-hidden"
           style={{ background: 'var(--color-surface)' }}
         >
-          <span
-            className="font-black text-4xl leading-none"
-            style={{
-              background: BULL_G,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >B</span>
+          <Image
+            src="/bull-logo.png"
+            alt="BULLFIT"
+            width={72}
+            height={72}
+            className="object-contain"
+            priority
+          />
         </div>
         <div className="text-center">
           <h1 className="text-2xl font-black tracking-widest text-text-primary">BULLFIT</h1>
