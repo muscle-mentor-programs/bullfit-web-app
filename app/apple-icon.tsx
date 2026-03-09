@@ -30,7 +30,6 @@ export default function AppleIcon() {
             objectFit: 'contain',
             objectPosition: 'center top',
             marginTop: '-8%',
-            marginLeft: '-32%',
           }}
         />
       </div>
