@@ -17,7 +17,7 @@ export default function AppleIcon() {
           width: '100%',
           height: '100%',
           display: 'flex',
-          alignItems: 'flex-start',
+          alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
         }}
@@ -28,8 +28,8 @@ export default function AppleIcon() {
             width: '165%',
             height: '165%',
             objectFit: 'contain',
-            objectPosition: 'center top',
-            marginTop: '-8%',
+            objectPosition: 'center center',
+            marginTop: '-20%',
           }}
         />
       </div>
