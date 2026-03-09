@@ -2,13 +2,14 @@
 
 import { cn } from '@/lib/utils/cn'
 import { ExternalLink, ShoppingCart, Star, Zap, Tag, Package } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 
 const BULL_G = '#00BEFF'
 const GOLD_G = 'linear-gradient(135deg, #FFC00E 0%, #FFD600 100%)'
 
-// ─── Product Data (bullfit.com placeholders) ────────────────────────────────
+// ─── Product Data ────────────────────────────────────────────────────────────
 
 const SUPPLEMENTS = [
   {
@@ -16,65 +17,75 @@ const SUPPLEMENTS = [
     name: 'Bodacious Pre-Workout',
     tagline: 'HIGH-STIM FORMULA',
     description: '250mg caffeine + 5g creatine. Pharmacist formulated. Zero sucralose.',
-    price: 49.99,
+    price: 59.95,
     salePrice: null,
     badge: 'BEST SELLER',
     badgeColor: '#FF0087',
     accentColor: '#00BEFF',
     category: 'Pre-Workout',
-    flavors: ['Watermelon Rush', 'Blue Razz', 'Strawberry Mango'],
+    flavors: ['Blue Rizz-Berry', 'Pina Coolada', 'Coconut Lime', 'Fruit Pump'],
+    image: '/products/bodacious.png',
+    url: 'https://www.bullfit.com/products/bodacious-pre-workout',
   },
   {
     id: 'cowabunga-pre',
     name: 'Cowabunga Pre-Workout',
     tagline: 'DAILY DRIVER',
     description: '150mg caffeine + 1g creatine. Perfect for everyday training.',
-    price: 44.99,
+    price: 49.95,
     salePrice: null,
     badge: null,
     badgeColor: '#CF00FF',
     accentColor: '#CF00FF',
     category: 'Pre-Workout',
-    flavors: ['Sour Gummy', 'Tropical Punch', 'Grape Crush'],
+    flavors: ['Tropical Punch', 'Peach Mango', 'Kiwi Strawberry', 'Pina Colada'],
+    image: '/products/cowabunga.png',
+    url: 'https://www.bullfit.com/products/cowabunga-daily-pick-me-up-pre-workout',
   },
   {
     id: 'decalf-nonstim',
     name: 'De-Calf Non-Stim',
     tagline: 'ZERO CAFFEINE',
     description: '10g L-Citrulline + 5g creatine. Maximum pump, zero stimulants.',
-    price: 44.99,
+    price: 54.95,
     salePrice: null,
     badge: null,
     badgeColor: '#00BEFF',
     accentColor: '#22C55E',
     category: 'Pre-Workout',
-    flavors: ['Peach Rings', 'Lemon Ice', 'Cherry Bomb'],
+    flavors: ['Cherry Limeade', 'Freedom Pop'],
+    image: '/products/decalf.png',
+    url: 'https://www.bullfit.com/products/de-calf-non-stim-pre-workout',
   },
   {
     id: 'bullfit-hydrate',
-    name: 'BULLFIT Hydrate',
-    tagline: 'ELECTROLYTE FORMULA',
-    description: 'Himalayan salt, magnesium & potassium. Train harder, recover faster.',
-    price: 34.99,
+    name: 'BullFit Hydrate',
+    tagline: 'ZERO SUGAR ELECTROLYTES',
+    description: 'Zero sugar electrolyte drink mix. 16 slap packs. Train harder, recover faster.',
+    price: 19.95,
     salePrice: null,
     badge: 'NEW',
     badgeColor: '#FFD600',
     accentColor: '#44AADF',
     category: 'Hydration',
-    flavors: ['Citrus Burst', 'Berry Wave', 'Pineapple Coconut'],
+    flavors: ['Tropical Variety Pouch', 'Tropical Variety Box'],
+    image: '/products/hydrate.jpg',
+    url: 'https://www.bullfit.com/products/hydrate',
   },
   {
     id: 'creatine-mono',
     name: 'Creatine Monohydrate',
     tagline: 'PURE FORMULA',
     description: '5g micronized creatine per serving. Unflavored. Zero fillers.',
-    price: 29.99,
-    salePrice: 24.99,
-    badge: 'BACK IN STOCK',
+    price: 29.95,
+    salePrice: null,
+    badge: null,
     badgeColor: '#22C55E',
     accentColor: '#CF00FF',
     category: 'Performance',
     flavors: ['Unflavored'],
+    image: '/products/creatine.png',
+    url: 'https://www.bullfit.com/products/based-creatine-monohydrate',
   },
 ]
 
@@ -111,32 +122,43 @@ const APPAREL = [
 function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
   return (
     <a
-      href="https://www.bullfit.com"
+      href={product.url}
       target="_blank"
       rel="noopener noreferrer"
       className="block rounded-2xl border border-border overflow-hidden"
       style={{ background: 'var(--color-surface)' }}
     >
-      {/* Color accent top bar */}
+      {/* Product image */}
+      <div className="relative w-full h-52 overflow-hidden" style={{ background: 'var(--color-surface-2)' }}>
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-contain p-4"
+          priority={product.id === 'bodacious-pre'}
+        />
+        {product.badge && (
+          <span
+            className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest text-black z-10"
+            style={{ backgroundColor: product.badgeColor }}
+          >
+            {product.badge}
+          </span>
+        )}
+      </div>
+
+      {/* Color accent bar */}
       <div className="h-1 w-full" style={{ backgroundColor: product.accentColor }} />
 
       <div className="p-4">
-        {/* Badge + Category */}
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[10px] font-black tracking-widest"
-            style={{ color: product.accentColor }}>{product.category.toUpperCase()}</span>
-          {product.badge && (
-            <span
-              className="px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest text-black"
-              style={{ backgroundColor: product.badgeColor }}
-            >
-              {product.badge}
-            </span>
-          )}
-        </div>
+        {/* Category */}
+        <span className="text-[10px] font-black tracking-widest" style={{ color: product.accentColor }}>
+          {product.category.toUpperCase()}
+        </span>
 
         {/* Product name + tagline */}
-        <h3 className="text-base font-black text-text-primary leading-tight mb-0.5">{product.name.toUpperCase()}</h3>
+        <h3 className="text-base font-black text-text-primary leading-tight mb-0.5 mt-1">{product.name.toUpperCase()}</h3>
         <p className="text-[10px] font-black tracking-widest mb-2" style={{ color: product.accentColor }}>{product.tagline}</p>
         <p className="text-xs text-text-muted mb-3 leading-relaxed normal-case">{product.description}</p>
 
