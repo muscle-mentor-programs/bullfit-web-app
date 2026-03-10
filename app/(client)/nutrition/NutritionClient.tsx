@@ -153,7 +153,7 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
     <>
       <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
         {/* ── Dark BULLFIT Page Hero ─────────────────── */}
-        <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <div className="page-hero" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
           <div className="hero-accent-bar" />
           <div className="hero-glow" style={{
             width: 200, height: 200, top: -60, right: -40,
@@ -165,7 +165,7 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
             background: 'radial-gradient(circle, rgba(207,0,255,0.12) 0%, transparent 70%)',
             filter: 'blur(30px)',
           }} />
-          <div className="px-5 pt-4 pb-7 relative flex items-end justify-between">
+          <div className="px-5 pt-6 pb-7 relative flex items-end justify-between">
             <div>
               <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
                 color: '#9A9A9A', textTransform: 'uppercase' }}>
@@ -191,7 +191,7 @@ export function NutritionClient({ goals, isAdmin, hasSuppScription }: { goals: G
         </div>
 
         {/* Date navigation */}
-        <div className="flex items-center justify-between px-4 pt-4 pb-4">
+        <div className="flex items-center justify-between px-4 pt-5 pb-4">
           <button
             onClick={() => setViewDate((d) => subDays(d, 1))}
             className="flex items-center justify-center w-9 h-9 rounded-xl border border-border shadow-sm text-text-muted hover:text-text-primary hover:bg-surface-2 transition-all"

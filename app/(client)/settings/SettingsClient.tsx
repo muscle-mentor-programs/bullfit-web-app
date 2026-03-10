@@ -103,9 +103,9 @@ export function SettingsClient({ user, isAdmin }: SettingsClientProps) {
     <div className="flex flex-col min-h-screen bg-background animate-fade-in pb-24">
 
       {/* Hero */}
-      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="page-hero" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
         <div className="hero-accent-bar" />
-        <div className="px-5 pt-4 pb-5 relative">
+        <div className="px-5 pt-6 pb-5 relative">
           <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em', color: '#9A9A9A', textTransform: 'uppercase' }}>
             APP PREFERENCES
           </p>

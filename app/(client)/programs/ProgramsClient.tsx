@@ -90,7 +90,7 @@ const INFLUENCER_PROGRAMS: ProgramData[] = [
     subtitle: '10-Week Body Transformation',
     description:
       "Delaney's signature program blends resistance training with targeted metabolic conditioning — sculpt lean muscle and torch fat simultaneously.",
-    price: 44.95,
+    price: 39.95,
     duration: '10 weeks',
     daysPerWeek: 4,
     level: 'INTERMEDIATE',
@@ -114,17 +114,14 @@ const INFLUENCER_PROGRAMS: ProgramData[] = [
     ],
   },
   {
-    id: 'thor-bjornsson',
-    influencer: 'Hafþór Björnsson',
-    tag: "WORLD'S STRONGEST MAN",
-    handle: '@thorbjornsson',
-    followers: '6.1M',
-    monogram: 'HB',
-    title: 'STRONGMAN PROTOCOL',
+    id: 'thor',
+    influencer: 'THOR',
+    monogram: 'TH',
+    title: 'THOR STRENGTH PROGRAM',
     subtitle: '16-Week Strength Foundation',
     description:
-      "The World's Strongest Man reveals the exact training methodology behind his record-breaking lifts. Raw, unfiltered strength development at its absolute peak.",
-    price: 54.95,
+      "Raw, unfiltered strength development. A 16-week program built around developing serious power and resilience — no fluff, no shortcuts, pure iron.",
+    price: 19.95,
     duration: '16 weeks',
     daysPerWeek: 5,
     level: 'EXTREME',
@@ -578,9 +575,9 @@ export function ProgramsClient({
     <div className="flex flex-col min-h-screen bg-background pb-8 animate-fade-in">
 
       {/* ── Page Hero ─────────────────────────────────────────────────── */}
-      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="page-hero" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
         <div className="hero-accent-bar" />
-        <div className="px-5 pt-4 pb-5 relative">
+        <div className="px-5 pt-6 pb-5 relative">
           <p
             style={{
               fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
@@ -603,7 +600,7 @@ export function ProgramsClient({
 
       {/* ── Active program banner ─────────────────────────────────────── */}
       {activeProgramId && (
-        <div className="px-4 pt-4">
+        <div className="px-4 pt-5">
           <Link
             href="/sessions"
             className="flex items-center gap-3 p-4 rounded-2xl"
@@ -632,7 +629,7 @@ export function ProgramsClient({
       )}
 
       {/* ── Tab switcher ─────────────────────────────────────────────── */}
-      <div className="px-4 pt-4 pb-3">
+      <div className="px-4 pt-5 pb-3">
         <div
           className="flex p-1 rounded-2xl"
           style={{

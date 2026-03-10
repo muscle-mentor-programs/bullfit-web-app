@@ -337,9 +337,9 @@ export function ProfileClient({ user, goals, weightHistory, subscription }: Prof
     <div className="flex flex-col min-h-screen bg-background animate-fade-in pb-24">
 
       {/* Hero */}
-      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="page-hero" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
         <div className="hero-accent-bar" />
-        <div className="px-5 pt-4 pb-5 relative">
+        <div className="px-5 pt-6 pb-5 relative">
           <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em', color: '#9A9A9A', textTransform: 'uppercase' }}>
             YOUR ACCOUNT
           </p>
@@ -350,7 +350,7 @@ export function ProfileClient({ user, goals, weightHistory, subscription }: Prof
       </div>
 
       {/* Avatar card */}
-      <div className="mx-4 mt-4 mb-2">
+      <div className="mx-4 mt-5 mb-2">
         <div className="rounded-2xl border border-border bg-surface p-4 flex items-center gap-4 shadow-sm">
           {/* Tappable avatar */}
           <button
@@ -391,7 +391,7 @@ export function ProfileClient({ user, goals, weightHistory, subscription }: Prof
       </div>
 
       {/* ── Profile section ─────────────────────────────────── */}
-      <p className="px-4 pt-5 pb-2 text-[10px] font-black tracking-widest text-text-muted">PROFILE</p>
+      <p className="px-4 pt-6 pb-2 text-[10px] font-black tracking-widest text-text-muted">PROFILE</p>
       <div className="border-t border-border">
         <ProfileRow icon={User} label="Username" value={user.name || 'Not set'} onClick={() => setPanel('username')} />
       </div>
@@ -444,7 +444,7 @@ export function ProfileClient({ user, goals, weightHistory, subscription }: Prof
           </button>
         ) : (
           <button
-            onClick={() => router.push('/subscribe')}
+            onClick={() => router.push('/shop')}
             className="flex w-full items-center gap-4 px-4 py-4 bg-background hover:bg-surface transition-colors text-left border-b border-border"
           >
             <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, var(--color-surface-2), var(--color-background))' }}>
@@ -455,7 +455,7 @@ export function ProfileClient({ user, goals, weightHistory, subscription }: Prof
               <p className="text-xs text-text-muted mt-0.5 normal-case font-normal">Subscribe &amp; save on supplements + unlock scanner</p>
             </div>
             <div className="flex items-center gap-1 text-[10px] font-black text-[#00BEFF]">
-              START <ChevronRight size={10} />
+              SHOP <ChevronRight size={10} />
             </div>
           </button>
         )}

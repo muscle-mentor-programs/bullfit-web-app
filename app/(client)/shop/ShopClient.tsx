@@ -132,19 +132,53 @@ function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
       href={product.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-2xl border border-border overflow-hidden"
-      style={{ background: 'var(--color-surface)' }}
+      className="block rounded-3xl overflow-hidden"
+      style={{
+        boxShadow: [
+          '0 16px 48px rgba(0,0,0,0.18)',
+          '0 6px 16px rgba(0,0,0,0.12)',
+          '0 2px 4px rgba(0,0,0,0.08)',
+          'inset 0 1px 0 rgba(255,255,255,0.06)',
+        ].join(','),
+      }}
     >
-      {/* Product image */}
-      <div className="product-img-wrapper relative w-full h-52 overflow-hidden">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="product-img-blend object-contain p-4"
-          priority={product.id === 'bodacious-pre'}
-        />
+      {/* ── Dark hero zone ── */}
+      <div
+        className="relative overflow-hidden"
+        style={{ height: 190, background: 'linear-gradient(155deg, #0A0A0A 0%, #141414 55%, #070707 100%)' }}
+      >
+        {/* Atmospheric glow */}
+        <div style={{
+          position: 'absolute', width: 250, height: 250, top: -80, right: -50, borderRadius: '50%',
+          background: `radial-gradient(circle, ${product.accentColor}50 0%, transparent 65%)`,
+          filter: 'blur(50px)', pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute', width: 180, height: 180, bottom: -60, left: -40, borderRadius: '50%',
+          background: `radial-gradient(circle, ${product.accentColor}28 0%, transparent 65%)`,
+          filter: 'blur(40px)', pointerEvents: 'none',
+        }} />
+
+        {/* Scanline texture */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.010) 0px, rgba(255,255,255,0.010) 1px, transparent 1px, transparent 3px)',
+        }} />
+
+        {/* Product image */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-contain p-6"
+            style={{ mixBlendMode: 'screen' }}
+            priority={product.id === 'bodacious-pre'}
+          />
+        </div>
+
+        {/* Badge */}
         {product.badge && (
           <span
             className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest text-black z-10"
@@ -153,49 +187,90 @@ function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
             {product.badge}
           </span>
         )}
+
+        {/* Bottom overlay with category chip */}
+        <div
+          className="absolute bottom-0 left-0 right-0 px-4 pb-4"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.20) 60%, transparent 100%)',
+            paddingTop: 40,
+          }}
+        >
+          <div style={{
+            display: 'inline-flex', alignItems: 'center',
+            background: `${product.accentColor}28`,
+            border: `1px solid ${product.accentColor}55`,
+            borderRadius: 7, padding: '3px 9px',
+            fontSize: 9, fontWeight: 900, letterSpacing: '0.12em',
+            color: product.accentColor,
+          }}>
+            {product.category.toUpperCase()}
+          </div>
+        </div>
       </div>
 
-      {/* Color accent bar */}
-      <div className="h-1 w-full" style={{ backgroundColor: product.accentColor }} />
+      {/* ── Content body ── */}
+      <div style={{ background: 'var(--color-surface)' }}>
+        {/* Gradient accent line */}
+        <div style={{ height: 2.5, background: `linear-gradient(135deg, ${product.accentColor}, #CF00FF)` }} />
 
-      <div className="p-4">
-        {/* Category */}
-        <span className="text-[10px] font-black tracking-widest" style={{ color: product.accentColor }}>
-          {product.category.toUpperCase()}
-        </span>
-
-        {/* Product name + tagline */}
-        <h3 className="text-base font-black text-text-primary leading-tight mb-0.5 mt-1">{product.name.toUpperCase()}</h3>
-        <p className="text-[10px] font-black tracking-widest mb-2" style={{ color: product.accentColor }}>{product.tagline}</p>
-        <p className="text-xs text-text-muted mb-3 leading-relaxed normal-case">{product.description}</p>
-
-        {/* Flavors */}
-        <div className="flex flex-wrap gap-1 mb-3">
-          {product.flavors.map(f => (
-            <span key={f} className="text-[9px] px-2 py-0.5 rounded-full border border-border text-text-muted normal-case">
-              {f}
-            </span>
-          ))}
-        </div>
-
-        {/* Price + CTA */}
-        <div className="flex items-center justify-between">
-          <div>
-            {product.salePrice ? (
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-lg font-black text-text-primary">${product.salePrice}</span>
-                <span className="text-xs text-text-muted line-through">${product.price}</span>
-              </div>
-            ) : (
-              <span className="text-lg font-black text-text-primary">${product.price}</span>
-            )}
-          </div>
-          <div
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-black text-white"
-            style={{ background: BULL_G }}
+        <div className="p-5">
+          {/* Name + tagline */}
+          <h3
+            style={{
+              fontFamily: 'var(--font-condensed)',
+              fontSize: 24, fontWeight: 900, letterSpacing: '0.01em', lineHeight: 1.05,
+              color: 'var(--color-text-primary)',
+            }}
           >
-            <ShoppingCart size={12} />
-            <span>SHOP</span>
+            {product.name.toUpperCase()}
+          </h3>
+          <p className="text-[10px] font-black tracking-widest mt-0.5 mb-3" style={{ color: product.accentColor }}>
+            {product.tagline}
+          </p>
+          <p className="text-xs text-text-muted mb-4 leading-relaxed normal-case">{product.description}</p>
+
+          {/* Flavors */}
+          <div className="flex flex-wrap gap-1 mb-4">
+            {product.flavors.map(f => (
+              <span key={f} className="text-[9px] px-2 py-0.5 rounded-full border border-border text-text-muted normal-case">
+                {f}
+              </span>
+            ))}
+          </div>
+
+          {/* Price + CTA */}
+          <div
+            className="flex items-center justify-between pt-4"
+            style={{ borderTop: '1px solid var(--color-border)' }}
+          >
+            <div className="flex flex-col leading-none">
+              {product.salePrice ? (
+                <>
+                  <span style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--color-text-primary)' }}>
+                    ${product.salePrice}
+                  </span>
+                  <span className="text-xs text-text-muted line-through mt-0.5">${product.price}</span>
+                </>
+              ) : (
+                <>
+                  <span style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-0.03em', color: 'var(--color-text-primary)' }}>
+                    ${product.price}
+                  </span>
+                  <span className="text-[10px] text-text-muted font-normal normal-case mt-1">one-time</span>
+                </>
+              )}
+            </div>
+            <div
+              className="flex items-center gap-1.5 px-5 py-3 rounded-2xl text-xs font-black text-black"
+              style={{
+                background: product.accentColor,
+                boxShadow: `0 4px 18px ${product.accentColor}55`,
+              }}
+            >
+              <ShoppingCart size={13} />
+              SHOP
+            </div>
           </div>
         </div>
       </div>
@@ -209,74 +284,124 @@ function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
       href={sub.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-2xl border overflow-hidden"
-      style={{ background: 'var(--color-surface)', borderColor: sub.accentColor + '44' }}
+      className="block rounded-3xl overflow-hidden"
+      style={{
+        boxShadow: [
+          '0 16px 48px rgba(0,0,0,0.18)',
+          '0 6px 16px rgba(0,0,0,0.12)',
+          '0 2px 4px rgba(0,0,0,0.08)',
+          'inset 0 1px 0 rgba(255,255,255,0.06)',
+        ].join(','),
+      }}
     >
-      {/* Product image */}
-      <div className="product-img-wrapper relative w-full h-40 overflow-hidden">
-        <Image
-          src={sub.image}
-          alt={sub.name}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="product-img-blend object-contain p-4"
-        />
-        {/* Scanner unlock badge — always visible */}
+      {/* ── Dark hero zone ── */}
+      <div
+        className="relative overflow-hidden"
+        style={{ height: 170, background: 'linear-gradient(155deg, #0A0A0A 0%, #141414 55%, #070707 100%)' }}
+      >
+        {/* Atmospheric glow */}
+        <div style={{
+          position: 'absolute', width: 220, height: 220, top: -70, right: -40, borderRadius: '50%',
+          background: `radial-gradient(circle, ${sub.accentColor}50 0%, transparent 65%)`,
+          filter: 'blur(45px)', pointerEvents: 'none',
+        }} />
+
+        {/* Scanline texture */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.010) 0px, rgba(255,255,255,0.010) 1px, transparent 1px, transparent 3px)',
+        }} />
+
+        {/* Product image */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Image
+            src={sub.image}
+            alt={sub.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-contain p-6"
+            style={{ mixBlendMode: 'screen' }}
+          />
+        </div>
+
+        {/* Bottom overlay with scanner badge */}
         <div
-          className="absolute bottom-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-black tracking-widest text-black"
-          style={{ background: GOLD_G }}
+          className="absolute bottom-0 left-0 right-0 px-4 pb-4"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.70) 0%, transparent 100%)',
+            paddingTop: 40,
+          }}
         >
-          <ScanBarcode size={10} />
-          SCANNER UNLOCKED
+          <div
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-black tracking-widest text-black"
+            style={{ background: GOLD_G }}
+          >
+            <ScanBarcode size={10} />
+            SCANNER UNLOCKED
+          </div>
         </div>
       </div>
 
-      {/* Accent bar */}
-      <div className="h-1 w-full" style={{ backgroundColor: sub.accentColor }} />
+      {/* ── Content body ── */}
+      <div style={{ background: 'var(--color-surface)' }}>
+        {/* Gradient accent line */}
+        <div style={{ height: 2.5, background: `linear-gradient(135deg, ${sub.accentColor}, #FFD600)` }} />
 
-      <div className="p-4">
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-[10px] font-black tracking-widest" style={{ color: sub.accentColor }}>
-            SUPPSCRIPTION™
-          </span>
-          <span
-            className="px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest"
-            style={{ background: GOLD_G, color: '#000' }}
-          >
-            {sub.savings}
-          </span>
-        </div>
-
-        <h3 className="text-base font-black text-text-primary mt-1 mb-0.5">{sub.name.toUpperCase()}</h3>
-        <p className="text-[10px] font-black tracking-widest mb-2" style={{ color: sub.accentColor }}>{sub.tagline}</p>
-        <p className="text-xs text-text-muted mb-3 normal-case leading-relaxed">{sub.description}</p>
-
-        {/* Frequency options */}
-        <div className="mb-4">
-          <p className="text-[10px] font-black tracking-widest text-text-muted mb-1.5">DELIVERY FREQUENCY</p>
-          <div className="flex gap-1.5">
-            {sub.frequencies.map(f => (
-              <span key={f} className="text-[9px] px-2 py-1 rounded-lg border border-border text-text-secondary font-semibold normal-case">
-                {f}
-              </span>
-            ))}
+        <div className="p-5">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[10px] font-black tracking-widest" style={{ color: sub.accentColor }}>
+              SUPPSCRIPTION™
+            </span>
+            <span
+              className="px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest"
+              style={{ background: GOLD_G, color: '#000' }}
+            >
+              {sub.savings}
+            </span>
           </div>
-        </div>
 
-        {/* Perks row */}
-        <div className="flex items-center gap-3 mb-4 text-[10px] text-text-secondary normal-case">
-          <span className="flex items-center gap-1"><Truck size={10} /> Free shipping</span>
-          <span className="flex items-center gap-1"><RefreshCcw size={10} /> Pause anytime</span>
-          <span className="flex items-center gap-1"><Gift size={10} /> New flavor access</span>
-        </div>
+          <h3
+            style={{
+              fontFamily: 'var(--font-condensed)',
+              fontSize: 22, fontWeight: 900, letterSpacing: '0.01em', lineHeight: 1.05,
+              color: 'var(--color-text-primary)', marginTop: 4, marginBottom: 2,
+            }}
+          >
+            {sub.name.toUpperCase()}
+          </h3>
+          <p className="text-[10px] font-black tracking-widest mb-3" style={{ color: sub.accentColor }}>{sub.tagline}</p>
+          <p className="text-xs text-text-muted mb-4 normal-case leading-relaxed">{sub.description}</p>
 
-        {/* CTA */}
-        <div
-          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black text-white"
-          style={{ background: BULL_G }}
-        >
-          <ScanBarcode size={13} />
-          SUBSCRIBE + UNLOCK SCANNER
+          {/* Frequency options */}
+          <div className="mb-4">
+            <p className="text-[10px] font-black tracking-widest text-text-muted mb-1.5">DELIVERY FREQUENCY</p>
+            <div className="flex gap-1.5">
+              {sub.frequencies.map(f => (
+                <span key={f} className="text-[9px] px-2 py-1 rounded-lg border border-border text-text-secondary font-semibold normal-case">
+                  {f}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Perks row */}
+          <div className="flex items-center gap-3 mb-5 text-[10px] text-text-secondary normal-case">
+            <span className="flex items-center gap-1"><Truck size={10} /> Free shipping</span>
+            <span className="flex items-center gap-1"><RefreshCcw size={10} /> Pause anytime</span>
+            <span className="flex items-center gap-1"><Gift size={10} /> New flavors</span>
+          </div>
+
+          {/* CTA */}
+          <div
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-xs font-black text-black"
+            style={{
+              background: `linear-gradient(135deg, ${sub.accentColor}, #FFD600)`,
+              boxShadow: `0 4px 18px ${sub.accentColor}45`,
+            }}
+          >
+            <ScanBarcode size={13} />
+            SUBSCRIBE + UNLOCK SCANNER
+          </div>
         </div>
       </div>
     </a>
@@ -309,7 +434,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
     <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
 
       {/* ── Dark BULLFIT Page Hero ─────────────────── */}
-      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="page-hero" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
         <div className="hero-accent-bar" />
         <div className="hero-glow" style={{
           width: 200, height: 200, top: -60, right: -40,
@@ -321,7 +446,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
           background: 'radial-gradient(circle, rgba(207,0,255,0.12) 0%, transparent 70%)',
           filter: 'blur(30px)',
         }} />
-        <div className="px-5 pt-4 pb-5 relative">
+        <div className="px-5 pt-6 pb-5 relative">
           <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.18em',
             color: '#9A9A9A', textTransform: 'uppercase' }}>
             PHARMACIST-FORMULATED
@@ -335,7 +460,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
       </div>
 
       {/* ── Promo Banner ─────────────────────────────────────────────────── */}
-      <div className="mx-4 mb-4 rounded-xl overflow-hidden">
+      <div className="mx-4 mt-4 mb-3 rounded-xl overflow-hidden">
         <div
           className="px-4 py-3 flex items-center justify-between"
           style={{ background: 'linear-gradient(135deg, rgba(255,0,135,0.15), rgba(207,0,255,0.10))' }}
@@ -355,7 +480,7 @@ export function ShopClient({ hasSuppScription }: { hasSuppScription: boolean }) 
 
       {/* ── Tab Switcher ─────────────────────────────────────────────────── */}
       <div className="px-4 mb-4">
-        <div className="flex gap-1 p-1 rounded-2xl" style={{ background: 'var(--color-surface)' }}>
+        <div className="flex gap-1 p-1 rounded-2xl" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.6)' }}>
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}

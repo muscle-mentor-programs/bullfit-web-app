@@ -2,7 +2,7 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
-import { CheckCircle2, ChevronRight, Loader2, Lock, Save, ShoppingBag, Trophy, Zap } from 'lucide-react'
+import { CheckCircle2, ChevronRight, Loader2, Save, ShoppingBag, Trophy, Zap } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -177,7 +177,7 @@ export function DashboardClient({
     <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
 
       {/* ── Dark Hero Header ────────────────────────────────── */}
-      <div className="page-hero" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="page-hero" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
         <div className="hero-accent-bar" />
 
         {/* Cyan glow — top right */}
@@ -193,7 +193,7 @@ export function DashboardClient({
           filter: 'blur(30px)',
         }} />
 
-        <div className="px-5 pt-5 pb-6 relative">
+        <div className="px-5 pt-7 pb-6 relative">
           {/* Eyebrow with gradient dash */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
             <div style={{
@@ -228,38 +228,10 @@ export function DashboardClient({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 px-4">
+      <div className="flex flex-col gap-4 px-4 pt-2">
 
         {/* ── Featured Product Banner ──────────────────────────────────── */}
         <FeaturedProductBanner />
-
-        {/* ── Subscription unlock ─────────────────────────────────────── */}
-        {!isSubscribed && (
-          <section
-            aria-label="Subscribe to unlock programs"
-            className="rounded-2xl overflow-hidden border border-white/10"
-            style={{ background: 'linear-gradient(135deg, rgba(0,190,255,0.08), rgba(207,0,255,0.05))' }}
-          >
-            <div className="h-0.5 w-full" style={{ background: BULL_G }} />
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-2">
-                <Lock size={14} className="text-[#00BEFF]" />
-                <span className="text-[11px] font-black tracking-widest text-[#00BEFF]">ELITE PROGRAMS</span>
-              </div>
-              <h2 className="text-lg font-black text-text-primary mb-1">Unlock Full Access</h2>
-              <p className="text-xs text-text-muted mb-4 normal-case">
-                Purchase individual programs or join a Subscribe &amp; Save SuppScription.
-              </p>
-              <Link
-                href="/subscribe"
-                className="flex items-center justify-center gap-2 h-11 w-full rounded-xl text-black text-sm font-black tracking-widest"
-                style={{ background: BULL_G }}
-              >
-                START FREE TRIAL
-              </Link>
-            </div>
-          </section>
-        )}
 
         {/* ── Today's Workout ─────────────────────────────────────────── */}
         {isSubscribed && completedToday ? (
