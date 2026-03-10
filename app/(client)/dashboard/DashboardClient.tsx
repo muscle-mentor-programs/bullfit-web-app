@@ -2,7 +2,6 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
-import { MacroRing } from '@/components/ui/MacroRing'
 import { CheckCircle2, ChevronRight, Loader2, Lock, Save, ShoppingBag, Trophy, Zap } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -367,32 +366,67 @@ export function DashboardClient({
           </Link>
         )}
 
-        {/* ── Today's Nutrition ring ───────────────────────────────────── */}
+        {/* ── Today's Nutrition (thin card) ────────────────────────────── */}
         <section aria-label="Today's nutrition">
           <div
-            className="rounded-2xl border border-border shadow-md p-5"
+            className="rounded-2xl border border-border p-4 shadow-sm"
             style={{ background: 'var(--color-surface)' }}
           >
-            <div className="flex items-center gap-2 mb-4">
-              <div className="h-0.5 w-3 rounded-full" style={{ background: '#00BEFF' }} />
-              <span className="text-[11px] font-black tracking-widest text-text-secondary">TODAY'S NUTRITION</span>
+            {/* Header */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="h-0.5 w-3 rounded-full" style={{ background: '#00BEFF' }} />
+                <span className="text-[11px] font-black tracking-widest text-text-secondary">TODAY'S NUTRITION</span>
+              </div>
+              <Link
+                href="/nutrition"
+                className="flex items-center gap-1 text-[10px] font-black text-[#00BEFF]"
+              >
+                LOG FOOD <ChevronRight size={11} />
+              </Link>
             </div>
-            <MacroRing
-              calories={todayMacros.calories}
-              calorieGoal={nutritionGoals.calories}
-              protein={todayMacros.protein_g}
-              proteinGoal={nutritionGoals.protein_g}
-              carbs={todayMacros.carbs_g}
-              carbsGoal={nutritionGoals.carbs_g}
-              fat={todayMacros.fat_g}
-              fatGoal={nutritionGoals.fat_g}
-            />
-            <Link
-              href="/nutrition"
-              className="mt-4 flex items-center justify-center gap-1.5 text-xs font-black text-[#00BEFF] hover:text-[#44AADF] transition-colors"
+
+            {/* Calories */}
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="text-3xl font-black text-text-primary leading-none">
+                {Math.round(todayMacros.calories).toLocaleString()}
+              </span>
+              <span className="text-xs text-text-muted">
+                / {nutritionGoals.calories.toLocaleString()} kcal
+              </span>
+            </div>
+
+            {/* Progress bar */}
+            <div
+              className="h-2 w-full rounded-full overflow-hidden mb-3"
+              style={{ background: 'var(--color-surface-2)' }}
             >
-              LOG FOOD <ChevronRight size={13} />
-            </Link>
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${Math.min((todayMacros.calories / Math.max(nutritionGoals.calories, 1)) * 100, 100)}%`,
+                  background: todayMacros.calories > nutritionGoals.calories
+                    ? 'linear-gradient(to right, #00BEFF, #DC2626)'
+                    : '#00BEFF',
+                }}
+              />
+            </div>
+
+            {/* Macro dots */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full" style={{ background: '#4A7ED4' }} />
+                <span className="text-[10px] font-black text-text-muted">{Math.round(todayMacros.protein_g)}g P</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full" style={{ background: '#3D9BAF' }} />
+                <span className="text-[10px] font-black text-text-muted">{Math.round(todayMacros.carbs_g)}g C</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full" style={{ background: '#9060C8' }} />
+                <span className="text-[10px] font-black text-text-muted">{Math.round(todayMacros.fat_g)}g F</span>
+              </div>
+            </div>
           </div>
         </section>
 

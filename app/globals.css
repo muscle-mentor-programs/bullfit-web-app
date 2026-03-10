@@ -294,3 +294,18 @@ a[role="button"]:active,
   background: #111111 !important;
   box-shadow: 0 -1px 0 rgba(255,255,255,0.08), 0 -4px 24px rgba(0,0,0,0.5) !important;
 }
+
+/* ── Shop product image containers ────────────────────────────────────────── */
+.product-img-wrapper {
+  background-color: #FFFFFF;
+}
+.dark .product-img-wrapper {
+  background-color: var(--color-surface-2);
+}
+/* mix-blend-mode multiply removes white bg in light mode; disabled in dark */
+.product-img-blend {
+  mix-blend-mode: multiply;
+}
+.dark .product-img-blend {
+  mix-blend-mode: normal;
+}

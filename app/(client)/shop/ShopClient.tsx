@@ -136,14 +136,13 @@ function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
       style={{ background: 'var(--color-surface)' }}
     >
       {/* Product image */}
-      <div className="relative w-full h-52 overflow-hidden bg-white">
+      <div className="product-img-wrapper relative w-full h-52 overflow-hidden">
         <Image
           src={product.image}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-contain p-4"
-          style={{ mixBlendMode: 'multiply' }}
+          className="product-img-blend object-contain p-4"
           priority={product.id === 'bodacious-pre'}
         />
         {product.badge && (
@@ -214,14 +213,13 @@ function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
       style={{ background: 'var(--color-surface)', borderColor: sub.accentColor + '44' }}
     >
       {/* Product image */}
-      <div className="relative w-full h-40 overflow-hidden bg-white">
+      <div className="product-img-wrapper relative w-full h-40 overflow-hidden">
         <Image
           src={sub.image}
           alt={sub.name}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-contain p-4"
-          style={{ mixBlendMode: 'multiply' }}
+          className="product-img-blend object-contain p-4"
         />
         {/* Scanner unlock badge — always visible */}
         <div
