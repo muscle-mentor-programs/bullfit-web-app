@@ -165,17 +165,25 @@ function SupplementCard({ product }: { product: typeof SUPPLEMENTS[0] }) {
           backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.010) 0px, rgba(255,255,255,0.010) 1px, transparent 1px, transparent 3px)',
         }} />
 
-        {/* Product image */}
+        {/* Product image — floated on white card so PNG backgrounds are always clean */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain p-6"
-            style={{ mixBlendMode: 'screen' }}
-            priority={product.id === 'bodacious-pre'}
-          />
+          <div style={{
+            position: 'relative', width: '58%', height: '82%',
+            background: '#FFFFFF',
+            borderRadius: 16,
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)',
+          }}>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-contain p-3"
+              style={{ mixBlendMode: 'multiply' }}
+              priority={product.id === 'bodacious-pre'}
+            />
+          </div>
         </div>
 
         {/* Badge */}
@@ -312,16 +320,24 @@ function SuppScriptionCard({ sub }: { sub: typeof SUPPSCRIPTIONS[0] }) {
           backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.010) 0px, rgba(255,255,255,0.010) 1px, transparent 1px, transparent 3px)',
         }} />
 
-        {/* Product image */}
+        {/* Product image — floated on white card */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Image
-            src={sub.image}
-            alt={sub.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain p-6"
-            style={{ mixBlendMode: 'screen' }}
-          />
+          <div style={{
+            position: 'relative', width: '55%', height: '80%',
+            background: '#FFFFFF',
+            borderRadius: 14,
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3)',
+          }}>
+            <Image
+              src={sub.image}
+              alt={sub.name}
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-contain p-3"
+              style={{ mixBlendMode: 'multiply' }}
+            />
+          </div>
         </div>
 
         {/* Bottom overlay with scanner badge */}

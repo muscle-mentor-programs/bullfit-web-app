@@ -1,8 +1,11 @@
-﻿'use client'
+'use client'
 
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils/cn'
-import { CheckCircle2, ChevronRight, Loader2, Save, ShoppingBag, Trophy, Zap } from 'lucide-react'
+import {
+  CheckCircle2, ChevronRight, Flame, Loader2,
+  Save, ShoppingBag, Tag, Trophy, Zap,
+} from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -18,23 +21,222 @@ interface DashboardClientProps {
   latestWeight: number | null
 }
 
-const BULL_G = '#00BEFF'
-const GOLD_G = 'linear-gradient(135deg, #FFC00E 0%, #FFD600 100%)'
+const BULL_G   = '#00BEFF'
+const GRAD_3   = 'linear-gradient(135deg, #00BEFF 0%, #CF00FF 50%, #FF0087 100%)'
+const GOLD_G   = 'linear-gradient(135deg, #FFC00E 0%, #FFD600 100%)'
 
-function getGreeting(hour: number): string {
-  if (hour < 12) return 'Good morning'
-  if (hour < 17) return 'Good afternoon'
-  return 'Good evening'
+// ─── Card shell — shared wrapper with big lift shadow ──────────────────────────
+function Card({ children, className, style }: {
+  children: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
+}) {
+  return (
+    <div
+      className={cn('rounded-3xl overflow-hidden', className)}
+      style={{
+        boxShadow: [
+          '0 8px 32px rgba(0,0,0,0.10)',
+          '0 3px 10px rgba(0,0,0,0.07)',
+          '0 1px 3px rgba(0,0,0,0.05)',
+          'inset 0 1px 0 rgba(255,255,255,0.7)',
+        ].join(','),
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  )
 }
 
-// ─── Inline Weight Logger ──────────────────────────────────────────────────────
+function getGreeting(hour: number): string {
+  if (hour < 12) return 'GOOD MORNING'
+  if (hour < 17) return 'GOOD AFTERNOON'
+  return 'GOOD EVENING'
+}
+
+// ─── Promo Banner ─────────────────────────────────────────────────────────────
+
+function FeaturedProductBanner() {
+  return (
+    <Link href="/shop" className="block">
+      <Card>
+        {/* Dark mini-hero */}
+        <div
+          className="relative overflow-hidden"
+          style={{
+            height: 76,
+            background: 'linear-gradient(135deg, #0A0A0A 0%, #141414 100%)',
+          }}
+        >
+          {/* Glow blobs */}
+          <div style={{
+            position: 'absolute', width: 160, height: 160, top: -60, right: -30, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,0,135,0.45) 0%, transparent 65%)',
+            filter: 'blur(35px)', pointerEvents: 'none',
+          }} />
+          <div style={{
+            position: 'absolute', width: 120, height: 120, bottom: -40, left: -20, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(207,0,255,0.30) 0%, transparent 65%)',
+            filter: 'blur(30px)', pointerEvents: 'none',
+          }} />
+
+          <div className="absolute inset-0 flex items-center px-4 justify-between">
+            <div className="flex items-center gap-3">
+              {/* Pulsing dot */}
+              <div style={{
+                width: 8, height: 8, borderRadius: '50%', background: '#FF0087',
+                boxShadow: '0 0 8px rgba(255,0,135,0.8)',
+              }} />
+              <div>
+                <p style={{ fontSize: 9, fontWeight: 900, letterSpacing: '0.16em', color: 'rgba(255,255,255,0.45)' }}>
+                  LIMITED OFFER
+                </p>
+                <p style={{ fontSize: 16, fontWeight: 900, letterSpacing: '0.04em', color: '#FFFFFF' }}>
+                  30% OFF EVERYTHING
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: 9, fontWeight: 900, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.40)', textAlign: 'right' }}>
+                USE CODE
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 900, letterSpacing: '0.08em', color: '#FFD600',
+                textShadow: '0 0 12px rgba(255,214,0,0.6)' }}>
+                MIKEOHEARN
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Light CTA strip */}
+        <div
+          className="flex items-center justify-between px-4 py-2.5"
+          style={{ background: 'var(--color-surface)' }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Tag size={11} style={{ color: '#FF0087' }} />
+            <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.12em', color: 'var(--color-text-secondary)' }}>
+              PHARMACIST-FORMULATED SUPPS
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-black text-[10px] font-black tracking-widest"
+            style={{ background: GOLD_G, boxShadow: '0 3px 10px rgba(255,214,0,0.35)' }}>
+            <ShoppingBag size={11} />
+            SHOP
+          </div>
+        </div>
+      </Card>
+    </Link>
+  )
+}
+
+// ─── Nutrition Card ───────────────────────────────────────────────────────────
+
+function NutritionCard({
+  todayMacros,
+  nutritionGoals,
+}: {
+  todayMacros: DashboardClientProps['todayMacros']
+  nutritionGoals: DashboardClientProps['nutritionGoals']
+}) {
+  const calPct = Math.min((todayMacros.calories / Math.max(nutritionGoals.calories, 1)) * 100, 100)
+  const over   = todayMacros.calories > nutritionGoals.calories
+
+  const macros = [
+    { label: 'PROTEIN', value: todayMacros.protein_g,  goal: nutritionGoals.protein_g,  color: '#4A9EFF' },
+    { label: 'CARBS',   value: todayMacros.carbs_g,    goal: nutritionGoals.carbs_g,    color: '#00BEFF' },
+    { label: 'FAT',     value: todayMacros.fat_g,       goal: nutritionGoals.fat_g,      color: '#CF00FF' },
+  ]
+
+  return (
+    <Link href="/nutrition" className="block">
+      <Card>
+        {/* 3-color gradient accent */}
+        <div style={{ height: 3, background: GRAD_3 }} />
+
+        <div className="p-4" style={{ background: 'var(--color-surface)' }}>
+          {/* Header */}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Flame size={13} style={{ color: '#FF0087' }} />
+              <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.14em', color: 'var(--color-text-secondary)' }}>
+                TODAY'S NUTRITION
+              </span>
+            </div>
+            <span style={{ fontSize: 9, fontWeight: 900, letterSpacing: '0.12em', color: BULL_G }}>
+              LOG FOOD →
+            </span>
+          </div>
+
+          {/* Calorie row */}
+          <div className="flex items-baseline gap-2 mb-3">
+            <span style={{ fontSize: 36, fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1, color: 'var(--color-text-primary)' }}>
+              {Math.round(todayMacros.calories).toLocaleString()}
+            </span>
+            <span style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>
+              / {nutritionGoals.calories.toLocaleString()} kcal
+            </span>
+            {over && (
+              <span style={{ fontSize: 9, fontWeight: 900, color: '#DC2626', letterSpacing: '0.10em' }}>OVER</span>
+            )}
+          </div>
+
+          {/* Progress bar */}
+          <div
+            className="w-full rounded-full overflow-hidden mb-4"
+            style={{ height: 6, background: 'var(--color-surface-2)' }}
+          >
+            <div
+              className="h-full rounded-full transition-all duration-700"
+              style={{
+                width: `${calPct}%`,
+                background: over
+                  ? 'linear-gradient(to right, #00BEFF, #DC2626)'
+                  : GRAD_3,
+              }}
+            />
+          </div>
+
+          {/* Macro bars */}
+          <div className="flex gap-2">
+            {macros.map(({ label, value, goal, color }) => {
+              const pct = Math.min((value / Math.max(goal, 1)) * 100, 100)
+              return (
+                <div key={label} className="flex-1">
+                  <div className="flex items-baseline justify-between mb-1">
+                    <span style={{ fontSize: 9, fontWeight: 900, letterSpacing: '0.10em', color: 'var(--color-text-muted)' }}>
+                      {label}
+                    </span>
+                    <span style={{ fontSize: 10, fontWeight: 900, color: 'var(--color-text-primary)' }}>
+                      {Math.round(value)}g
+                    </span>
+                  </div>
+                  <div className="w-full rounded-full overflow-hidden" style={{ height: 4, background: 'var(--color-surface-2)' }}>
+                    <div
+                      className="h-full rounded-full transition-all duration-700"
+                      style={{ width: `${pct}%`, background: color }}
+                    />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </Card>
+    </Link>
+  )
+}
+
+// ─── Weight Widget ────────────────────────────────────────────────────────────
 
 function WeightWidget({ initialWeight }: { initialWeight: number | null }) {
   const supabase = createClient()
-  const router = useRouter()
-  const [weightLbs, setWeightLbs] = useState('')
-  const [saving, setSaving] = useState(false)
-  const [saved, setSaved] = useState(false)
+  const router   = useRouter()
+  const [weightLbs, setWeightLbs]       = useState('')
+  const [saving, setSaving]             = useState(false)
+  const [saved, setSaved]               = useState(false)
   const [currentWeight, setCurrentWeight] = useState<number | null>(initialWeight)
 
   async function logWeight() {
@@ -45,10 +247,7 @@ function WeightWidget({ initialWeight }: { initialWeight: number | null }) {
     if (!user) { setSaving(false); return }
     const today = new Date().toISOString().slice(0, 10)
     await supabase.from('user_metrics').insert({
-      user_id: user.id,
-      recorded_date: today,
-      weight_lbs: val,
-      notes: null,
+      user_id: user.id, recorded_date: today, weight_lbs: val, notes: null,
     })
     setCurrentWeight(val)
     setWeightLbs('')
@@ -59,87 +258,59 @@ function WeightWidget({ initialWeight }: { initialWeight: number | null }) {
   }
 
   return (
-    <div
-      className="rounded-2xl border border-border shadow-md p-5"
-      style={{ background: 'var(--color-surface)' }}
-    >
-      <div className="flex items-center gap-2 mb-3">
-        <div className="h-0.5 w-3 rounded-full" style={{ background: GOLD_G }} />
-        <span className="text-[11px] font-black tracking-widest text-text-secondary">BODY WEIGHT</span>
-      </div>
+    <Card>
+      {/* Gold gradient accent */}
+      <div style={{ height: 3, background: GOLD_G }} />
 
-      {currentWeight && (
-        <p className="text-3xl font-black text-text-primary mb-3">
-          {currentWeight}
-          <span className="text-base font-normal text-text-muted ml-1">lbs</span>
-        </p>
-      )}
-
-      <div className="flex gap-2">
-        <input
-          type="number"
-          inputMode="decimal"
-          value={weightLbs}
-          onChange={(e) => setWeightLbs(e.target.value)}
-          placeholder={currentWeight ? `${currentWeight} lbs` : 'Enter weight (lbs)'}
-          className={cn(
-            'flex-1 h-10 px-3 rounded-xl border border-border bg-background',
-            'text-sm text-text-primary placeholder:text-text-muted',
-            'focus:outline-none focus:border-[#00BEFF] focus:ring-2 focus:ring-[#00BEFF]/20',
+      <div className="p-4" style={{ background: 'var(--color-surface)' }}>
+        <div className="flex items-center justify-between mb-3">
+          <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.14em', color: 'var(--color-text-secondary)' }}>
+            BODY WEIGHT
+          </span>
+          {currentWeight && (
+            <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.02em', color: 'var(--color-text-primary)' }}>
+              {currentWeight}
+              <span style={{ fontSize: 12, fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 3 }}>lbs</span>
+            </span>
           )}
-          onKeyDown={(e) => { if (e.key === 'Enter') logWeight() }}
-        />
-        <button
-          onClick={logWeight}
-          disabled={saving || !weightLbs}
-          className={cn(
-            'h-10 px-4 rounded-xl text-xs font-black tracking-wider text-black',
-            'transition-all active:scale-[0.97] disabled:opacity-40',
-          )}
-          style={{ background: BULL_G }}
-        >
-          {saving ? <Loader2 size={13} className="animate-spin text-white" /> : saved ? '✓' : <Save size={13} />}
-        </button>
-      </div>
-
-      <Link
-        href="/settings"
-        className="mt-3 flex items-center gap-1.5 text-xs font-black text-[#00BEFF] hover:text-[#44AADF] transition-colors"
-      >
-        View history <ChevronRight size={13} />
-      </Link>
-    </div>
-  )
-}
-
-// ─── Featured Product Banner ──────────────────────────────────────────────────
-
-function FeaturedProductBanner() {
-  return (
-    <Link
-      href="/shop"
-      className="block rounded-2xl overflow-hidden border border-white/10"
-      style={{ background: 'var(--color-surface)' }}
-    >
-      <div className="h-0.5 w-full" style={{ background: BULL_G }} />
-      <div className="p-4 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-1.5 mb-1">
-            <div className="h-1.5 w-1.5 rounded-full" style={{ background: '#FF0087' }} />
-            <span className="text-[9px] font-black tracking-widest text-[#FF0087]">LIMITED OFFER</span>
-          </div>
-          <p className="text-sm font-black text-text-primary">30% OFF EVERYTHING</p>
-          <p className="text-[10px] text-text-muted normal-case">Use code: <span className="text-[#FFD600] font-black">MIKEOHEARN</span></p>
         </div>
-        <div
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black text-black"
-          style={{ background: GOLD_G }}
-        >
-          <ShoppingBag size={13} />
-          SHOP
+
+        <div className="flex gap-2">
+          <input
+            type="number"
+            inputMode="decimal"
+            value={weightLbs}
+            onChange={e => setWeightLbs(e.target.value)}
+            placeholder={currentWeight ? `${currentWeight} lbs` : 'Enter weight (lbs)'}
+            className={cn(
+              'flex-1 h-11 px-3 rounded-2xl border border-border bg-background',
+              'text-sm text-text-primary placeholder:text-text-muted',
+              'focus:outline-none focus:border-[#00BEFF] focus:ring-2 focus:ring-[#00BEFF]/20',
+            )}
+            onKeyDown={e => { if (e.key === 'Enter') logWeight() }}
+          />
+          <button
+            onClick={logWeight}
+            disabled={saving || !weightLbs}
+            className="h-11 px-5 rounded-2xl text-xs font-black tracking-wider text-black disabled:opacity-40"
+            style={{
+              background: GOLD_G,
+              boxShadow: saving || !weightLbs ? 'none' : '0 3px 12px rgba(255,214,0,0.35)',
+            }}
+          >
+            {saving ? <Loader2 size={13} className="animate-spin" /> : saved ? '✓' : <Save size={14} />}
+          </button>
         </div>
+
+        <Link
+          href="/profile"
+          className="mt-3 flex items-center gap-1 text-[10px] font-black tracking-widest"
+          style={{ color: BULL_G }}
+        >
+          VIEW HISTORY <ChevronRight size={11} />
+        </Link>
       </div>
-    </Link>
+    </Card>
   )
 }
 
@@ -154,7 +325,7 @@ export function DashboardClient({
   isSubscribed,
   latestWeight,
 }: DashboardClientProps) {
-  const router = useRouter()
+  const router   = useRouter()
   const greeting = getGreeting(new Date().getHours())
   const firstName = userName.split(' ')[0]?.trim() || 'Athlete'
 
@@ -174,248 +345,197 @@ export function DashboardClient({
   }, [router])
 
   return (
-    <div className="flex flex-col min-h-screen bg-background pb-6 animate-fade-in">
+    <div className="flex flex-col min-h-screen bg-background pb-8 animate-fade-in">
 
-      {/* ── Dark Hero Header ────────────────────────────────── */}
+      {/* ── Dark Hero Header ─────────────────────────────────────── */}
       <div className="page-hero" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
         <div className="hero-accent-bar" />
 
-        {/* Cyan glow — top right */}
+        {/* Cyan glow top-right */}
         <div className="hero-glow" style={{
-          width: 240, height: 240, top: -80, right: -60,
-          background: 'radial-gradient(circle, rgba(0,190,255,0.20) 0%, transparent 70%)',
-          filter: 'blur(30px)',
+          width: 260, height: 260, top: -90, right: -70,
+          background: 'radial-gradient(circle, rgba(0,190,255,0.22) 0%, transparent 70%)',
+          filter: 'blur(35px)',
         }} />
-        {/* Pink glow — bottom left */}
+        {/* Pink glow bottom-left */}
         <div className="hero-glow" style={{
-          width: 180, height: 180, bottom: 0, left: -50,
-          background: 'radial-gradient(circle, rgba(255,0,135,0.12) 0%, transparent 70%)',
-          filter: 'blur(30px)',
+          width: 200, height: 200, bottom: -20, left: -60,
+          background: 'radial-gradient(circle, rgba(255,0,135,0.14) 0%, transparent 70%)',
+          filter: 'blur(35px)',
+        }} />
+        {/* Purple mid */}
+        <div className="hero-glow" style={{
+          width: 180, height: 180, top: 20, left: '40%',
+          background: 'radial-gradient(circle, rgba(207,0,255,0.08) 0%, transparent 70%)',
+          filter: 'blur(40px)',
         }} />
 
-        <div className="px-5 pt-7 pb-6 relative">
-          {/* Eyebrow with gradient dash */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+        <div className="px-5 pt-7 pb-8 relative">
+          {/* Eyebrow */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
             <div style={{
-              width: 16, height: 2, borderRadius: 1,
-              background: 'linear-gradient(90deg, #00BEFF, #CF00FF)',
+              width: 20, height: 2, borderRadius: 1,
+              background: GRAD_3,
             }} />
-            <p style={{
-              fontSize: 11, fontWeight: 900, letterSpacing: '0.16em',
-              color: '#9A9A9A', textTransform: 'uppercase',
-            }}>
+            <p style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>
               {greeting}
             </p>
           </div>
 
-          {/* Name — gradient text */}
+          {/* Name — white-to-cyan gradient */}
           <h1 style={{
-            fontFamily: 'var(--font-condensed)', fontSize: 52, fontWeight: 900,
-            letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.0,
-            background: 'linear-gradient(135deg, #111111 0%, #00BEFF 55%, #CF00FF 100%)',
+            fontFamily: 'var(--font-condensed)', fontSize: 56, fontWeight: 900,
+            letterSpacing: '0.01em', textTransform: 'uppercase', lineHeight: 0.95,
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 30%, #33CBFF 70%, #CF00FF 100%)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           }}>
             {firstName}
           </h1>
 
-          {/* Date */}
-          <p style={{
-            fontSize: 11, fontWeight: 700, letterSpacing: '0.12em',
-            color: '#9A9A9A', marginTop: 6, textTransform: 'uppercase',
-          }}>
-            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase()}
-          </p>
+          {/* Date pill */}
+          <div
+            className="inline-flex items-center mt-4 px-3 py-1 rounded-full"
+            style={{
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.10)',
+              backdropFilter: 'blur(4px)',
+            }}
+          >
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.10em', color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase' }}>
+              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase()}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 px-4 pt-2">
+      <div className="flex flex-col gap-4 px-4 pt-4">
 
-        {/* ── Featured Product Banner ──────────────────────────────────── */}
+        {/* ── Promo Banner ────────────────────────────────────────── */}
         <FeaturedProductBanner />
 
-        {/* ── Today's Workout ─────────────────────────────────────────── */}
+        {/* ── Today's Workout ─────────────────────────────────────── */}
         {isSubscribed && completedToday ? (
-          <section
-            aria-label="Workout completed"
-            className="rounded-2xl overflow-hidden border border-white/10"
-            style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(0,190,255,0.05))' }}
-          >
-            <div className="h-1 w-full" style={{ background: 'var(--color-surface)' }} />
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-1">
-                <CheckCircle2 size={14} className="text-[#22C55E]" />
-                <span className="text-[11px] font-black tracking-widest text-[#22C55E]">TODAY'S WORKOUT</span>
+
+          <Card>
+            <div style={{ height: 3, background: 'linear-gradient(135deg, #22C55E, #00BEFF)' }} />
+            <div className="p-5" style={{ background: 'var(--color-surface)' }}>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-7 h-7 rounded-xl flex items-center justify-center"
+                  style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.30)' }}>
+                  <CheckCircle2 size={14} style={{ color: '#22C55E' }} />
+                </div>
+                <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.14em', color: '#22C55E' }}>TODAY'S WORKOUT</span>
               </div>
-              <h2 className="text-xl font-black text-text-primary leading-tight mb-1">
+              <h2 style={{ fontFamily: 'var(--font-condensed)', fontSize: 26, fontWeight: 900, letterSpacing: '0.02em', lineHeight: 1.05, color: 'var(--color-text-primary)', marginBottom: 4 }}>
                 {completedToday.title.toUpperCase()}
               </h2>
-              <p className="text-xs text-text-muted mb-4 normal-case">
+              <p style={{ fontSize: 11, color: 'var(--color-text-muted)', marginBottom: 16 }} className="normal-case">
                 {completedToday.exerciseCount} exercise{completedToday.exerciseCount !== 1 ? 's' : ''} · Completed today
               </p>
               <div className="flex gap-2">
-                <div
-                  className="flex flex-1 items-center justify-center gap-2 h-12 rounded-xl"
-                  style={{ background: 'rgba(34,197,94,0.12)', border: '1.5px solid rgba(34,197,94,0.30)' }}
-                >
-                  <CheckCircle2 size={16} className="text-[#22C55E]" />
-                  <span className="text-sm font-black tracking-widest text-[#22C55E]">DONE</span>
+                <div className="flex flex-1 items-center justify-center gap-2 h-12 rounded-2xl"
+                  style={{ background: 'rgba(34,197,94,0.10)', border: '1.5px solid rgba(34,197,94,0.25)' }}>
+                  <CheckCircle2 size={15} style={{ color: '#22C55E' }} />
+                  <span style={{ fontSize: 11, fontWeight: 900, letterSpacing: '0.12em', color: '#22C55E' }}>DONE</span>
                 </div>
                 <Link
                   href={`/sessions/${completedToday.id}/log`}
-                  className="flex flex-1 items-center justify-center gap-2 h-12 rounded-xl text-black text-sm font-black tracking-widest"
-                  style={{ background: BULL_G }}
+                  className="flex flex-1 items-center justify-center gap-2 h-12 rounded-2xl text-black"
+                  style={{ background: BULL_G, boxShadow: '0 4px 16px rgba(0,190,255,0.30)', fontSize: 11, fontWeight: 900, letterSpacing: '0.12em' }}
                 >
                   VIEW LOG
                 </Link>
               </div>
             </div>
-          </section>
+          </Card>
+
         ) : isSubscribed && sessionData ? (
-          <section
-            aria-label="Today's training"
-            className="rounded-2xl overflow-hidden border border-white/10"
-            style={{ background: 'var(--color-surface)' }}
-          >
-            <div className="h-1.5 w-full" style={{ background: BULL_G }} />
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: BULL_G }}>
-                  <Zap size={12} className="text-black" />
+
+          <Card>
+            <div style={{ height: 3, background: GRAD_3 }} />
+            <div className="p-5" style={{ background: 'var(--color-surface)' }}>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-7 h-7 rounded-xl flex items-center justify-center text-black"
+                  style={{ background: BULL_G, boxShadow: '0 3px 10px rgba(0,190,255,0.35)' }}>
+                  <Zap size={14} />
                 </div>
-                <span className="text-[11px] font-black tracking-widest text-[#00BEFF]">TODAY'S WORKOUT</span>
+                <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.14em', color: BULL_G }}>TODAY'S WORKOUT</span>
               </div>
-              <h2 className="text-xl font-black text-text-primary leading-tight mb-1">
+              <h2 style={{ fontFamily: 'var(--font-condensed)', fontSize: 26, fontWeight: 900, letterSpacing: '0.02em', lineHeight: 1.05, color: 'var(--color-text-primary)', marginBottom: 4 }}>
                 {sessionData.title.toUpperCase()}
               </h2>
-              <p className="text-xs text-text-muted mb-4 normal-case">
+              <p style={{ fontSize: 11, color: 'var(--color-text-muted)', marginBottom: 16 }} className="normal-case">
                 {sessionData.exerciseCount} exercise{sessionData.exerciseCount !== 1 ? 's' : ''}
               </p>
               <Link
                 href={`/sessions/${sessionData.id}/active`}
-                className="flex items-center justify-center gap-2 h-12 w-full rounded-xl text-black text-sm font-black tracking-widest"
-                style={{ background: BULL_G }}
+                className="flex items-center justify-center gap-2 h-13 w-full rounded-2xl text-black"
+                style={{ background: GRAD_3, boxShadow: '0 6px 22px rgba(0,190,255,0.28)', fontSize: 13, fontWeight: 900, letterSpacing: '0.12em', height: 52 }}
               >
                 START WORKOUT
               </Link>
             </div>
-          </section>
+          </Card>
+
         ) : isSubscribed ? (
-          <section
-            aria-label="Rest day"
-            className="rounded-2xl border border-border p-5"
-            style={{ background: 'var(--color-surface)' }}
-          >
-            <div className="h-0.5 w-full mb-4 rounded-full" style={{ background: 'linear-gradient(to right, #282828, transparent)' }} />
-            <span className="text-[11px] font-black tracking-widest text-text-muted">TODAY'S WORKOUT</span>
-            <h2 className="text-xl font-black text-text-primary mt-1 mb-1">REST DAY</h2>
-            <p className="text-xs text-text-muted normal-case">Recovery is part of the process.</p>
-            <Link
-              href="/sessions"
-              className="mt-4 flex items-center gap-1.5 text-xs font-black text-[#00BEFF] hover:text-[#44AADF] transition-colors"
-            >
-              View schedule <ChevronRight size={14} />
-            </Link>
-          </section>
-        ) : (
-          /* Programs teaser for non-subscribed */
-          <Link
-            href="/programs"
-            className="block rounded-2xl overflow-hidden border border-border"
-            style={{ background: 'var(--color-surface)' }}
-          >
-            <div className="h-0.5 w-full" style={{ background: GOLD_G }} />
-            <div className="p-5 flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Trophy size={14} className="text-[#FFD600]" />
-                  <span className="text-[11px] font-black tracking-widest text-[#FFD600]">ELITE PROGRAMS</span>
-                </div>
-                <p className="text-sm font-black text-text-primary">Browse Programs</p>
-                <p className="text-[10px] text-text-muted normal-case">Influencer-led + BULLFIT originals</p>
-              </div>
-              <ChevronRight size={20} className="text-text-muted" />
+
+          <Card>
+            <div style={{ height: 3, background: 'linear-gradient(135deg, #444444, #666666)' }} />
+            <div className="p-5" style={{ background: 'var(--color-surface)' }}>
+              <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.14em', color: 'var(--color-text-muted)' }}>TODAY'S WORKOUT</span>
+              <h2 style={{ fontFamily: 'var(--font-condensed)', fontSize: 26, fontWeight: 900, letterSpacing: '0.02em', color: 'var(--color-text-primary)', marginTop: 6, marginBottom: 4 }}>REST DAY</h2>
+              <p style={{ fontSize: 11, color: 'var(--color-text-muted)' }} className="normal-case">Recovery is part of the process.</p>
+              <Link
+                href="/sessions"
+                className="mt-4 flex items-center gap-1 text-[10px] font-black tracking-widest"
+                style={{ color: BULL_G }}
+              >
+                VIEW SCHEDULE <ChevronRight size={11} />
+              </Link>
             </div>
+          </Card>
+
+        ) : (
+
+          /* Programs teaser for non-subscribed */
+          <Link href="/programs" className="block">
+            <Card>
+              <div style={{ height: 3, background: GOLD_G }} />
+              <div className="p-5 flex items-center justify-between" style={{ background: 'var(--color-surface)' }}>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Trophy size={13} style={{ color: '#FFD600' }} />
+                    <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '0.14em', color: '#FFD600' }}>ELITE PROGRAMS</span>
+                  </div>
+                  <p style={{ fontFamily: 'var(--font-condensed)', fontSize: 22, fontWeight: 900, letterSpacing: '0.02em', color: 'var(--color-text-primary)' }}>
+                    BROWSE PROGRAMS
+                  </p>
+                  <p style={{ fontSize: 10, color: 'var(--color-text-muted)', marginTop: 2 }} className="normal-case">
+                    Influencer-led + BULLFIT originals
+                  </p>
+                </div>
+                <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                  style={{ background: GOLD_G, boxShadow: '0 4px 14px rgba(255,214,0,0.35)' }}>
+                  <ChevronRight size={18} className="text-black" />
+                </div>
+              </div>
+            </Card>
           </Link>
         )}
 
-        {/* ── Today's Nutrition (thin card) ────────────────────────────── */}
-        <section aria-label="Today's nutrition">
-          <div
-            className="rounded-2xl border border-border p-4 shadow-sm"
-            style={{ background: 'var(--color-surface)' }}
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <div className="h-0.5 w-3 rounded-full" style={{ background: '#00BEFF' }} />
-                <span className="text-[11px] font-black tracking-widest text-text-secondary">TODAY'S NUTRITION</span>
-              </div>
-              <Link
-                href="/nutrition"
-                className="flex items-center gap-1 text-[10px] font-black text-[#00BEFF]"
-              >
-                LOG FOOD <ChevronRight size={11} />
-              </Link>
-            </div>
+        {/* ── Today's Nutrition ───────────────────────────────────── */}
+        <NutritionCard todayMacros={todayMacros} nutritionGoals={nutritionGoals} />
 
-            {/* Calories */}
-            <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-3xl font-black text-text-primary leading-none">
-                {Math.round(todayMacros.calories).toLocaleString()}
-              </span>
-              <span className="text-xs text-text-muted">
-                / {nutritionGoals.calories.toLocaleString()} kcal
-              </span>
-            </div>
+        {/* ── Weight Logger ────────────────────────────────────────── */}
+        <WeightWidget initialWeight={latestWeight} />
 
-            {/* Progress bar */}
-            <div
-              className="h-2 w-full rounded-full overflow-hidden mb-3"
-              style={{ background: 'var(--color-surface-2)' }}
-            >
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${Math.min((todayMacros.calories / Math.max(nutritionGoals.calories, 1)) * 100, 100)}%`,
-                  background: todayMacros.calories > nutritionGoals.calories
-                    ? 'linear-gradient(to right, #00BEFF, #DC2626)'
-                    : '#00BEFF',
-                }}
-              />
-            </div>
-
-            {/* Macro dots */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full" style={{ background: '#4A7ED4' }} />
-                <span className="text-[10px] font-black text-text-muted">{Math.round(todayMacros.protein_g)}g P</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full" style={{ background: '#3D9BAF' }} />
-                <span className="text-[10px] font-black text-text-muted">{Math.round(todayMacros.carbs_g)}g C</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full" style={{ background: '#9060C8' }} />
-                <span className="text-[10px] font-black text-text-muted">{Math.round(todayMacros.fat_g)}g F</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Weight Logger ────────────────────────────────────────────── */}
-        <section aria-label="Body weight">
-          <WeightWidget initialWeight={latestWeight} />
-        </section>
-
-        {/* ── BULLFIT footer ───────────────────────────────────────────── */}
+        {/* ── Footer ──────────────────────────────────────────────── */}
         <div className="pt-2 pb-4 text-center">
           <p
             className="text-xs font-black tracking-widest"
             style={{
-              background: BULL_G,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              background: GRAD_3,
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
             }}
           >
             BULLFIT
