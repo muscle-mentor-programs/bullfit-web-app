@@ -382,17 +382,11 @@ export function DashboardClient({
             </p>
           </div>
 
-          {/* Name — white-to-cyan gradient with lift shadow */}
+          {/* Name — solid color, adapts light/dark via CSS token */}
           <h1 style={{
             fontFamily: 'var(--font-condensed)', fontSize: 56, fontWeight: 900,
             letterSpacing: '0.01em', textTransform: 'uppercase', lineHeight: 0.95,
-            background: 'linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 30%, #33CBFF 70%, #CF00FF 100%)',
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            filter: [
-              'drop-shadow(0 2px 12px rgba(0,190,255,0.75))',
-              'drop-shadow(0 4px 28px rgba(0,190,255,0.40))',
-              'drop-shadow(0 1px 0px rgba(255,255,255,0.60))',
-            ].join(' '),
+            color: 'var(--color-text-primary)',
           }}>
             {firstName}
           </h1>
